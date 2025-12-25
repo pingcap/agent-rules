@@ -1,58 +1,22 @@
-# TiDB Cloud Serverless Driver (Beta)
+﻿# TiDB Cloud Serverless Driver (Beta)
 
-## Table of contents
+> **Note:** The serverless driver is in beta and only applies to Starter or Essential clusters.
 
-- [Why use TiDB Cloud Serverless Driver (Beta)](#why-use-tidb-cloud-serverless-driver-beta)
-- [Install the serverless driver](#install-the-serverless-driver)
-- [Use the serverless driver](#use-the-serverless-driver)
-  - [Query](#query)
-  - [Transaction (experimental)](#transaction-experimental)
-- [Edge examples](#edge-examples)
-  - [Vercel Edge Function](#vercel-edge-function)
-  - [Cloudflare Workers](#cloudflare-workers)
-  - [Netlify Edge Function](#netlify-edge-function)
-  - [Deno](#deno)
-  - [Bun](#bun)
-- [Configure the serverless driver](#configure-the-serverless-driver)
-  - [Connection level configurations](#connection-level-configurations)
-  - [SQL level options](#sql-level-options)
-- [Features](#features)
-  - [Supported SQL statements](#supported-sql-statements)
-  - [Data type mapping](#data-type-mapping)
-  - [ORM integrations](#orm-integrations)
-- [Pricing](#pricing)
-- [Limitations](#limitations)
-- [What's next](#whats-next)
+## Why use it
 
-> **Note:**
->
-> The serverless driver is in beta and only applicable to Starter or Essential clusters.
+Serverless and edge runtimes are short‑lived and often lack full TCP support. Traditional MySQL drivers expect long‑lived TCP connections, so they can fail or perform poorly. The TiDB Cloud serverless driver uses HTTP, which works well in serverless/edge environments while keeping a similar developer experience.
 
-## Why use TiDB Cloud Serverless Driver (Beta)
+If you prefer REST over SQL/ORM, use Data Service (beta): https://docs.pingcap.com/tidbcloud/data-service-overview
 
-Traditional TCP-based MySQL drivers expect long-lived TCP connections. Serverless and edge runtimes are short-lived and often lack full TCP support, so those drivers can fail or perform poorly.
-
-[TiDB Cloud serverless driver (Beta)](https://github.com/tidbcloud/serverless-js) uses HTTP to connect to Starter or Essential clusters. HTTP works well in serverless and edge environments, while keeping a similar developer experience to TCP-based drivers.
-
-> **Note:**
->
-> If you prefer programming with RESTful API rather than SQL or ORM, you can use [Data Service (beta)](https://docs.pingcap.com/tidbcloud/data-service-overview).
-
-## Install the serverless driver
-
-You can install the driver with npm:
+## Install
 
 ```bash
 npm install @tidbcloud/serverless
 ```
 
-## Use the serverless driver
-
-You can use the serverless driver to query data of a Starter or Essential cluster or perform interactive transactions.
+## Basic usage
 
 ### Query
-
-To query data from a Starter or Essential cluster, you need to create a connection first. Then you can use the connection to execute raw SQL queries. For example:
 
 ```ts
 import { connect } from '@tidbcloud/serverless'
@@ -62,8 +26,6 @@ const results = await conn.execute('select * from test where id = ?', [1])
 ```
 
 ### Transaction (experimental)
-
-You can also perform interactive transactions with the serverless driver. For example:
 
 ```ts
 import { connect } from '@tidbcloud/serverless'
@@ -83,9 +45,7 @@ try {
 
 ## Edge examples
 
-Here are some examples of using the serverless driver in edge environments. For a complete example, try this [live demo](https://github.com/tidbcloud/car-sales-insight).
-
-### Vercel Edge Function
+Vercel Edge Function:
 
 ```ts
 import { NextResponse } from 'next/server'
@@ -101,9 +61,7 @@ export async function GET(request: NextRequest) {
 }
 ```
 
-Learn more about [using TiDB Cloud serverless driver in Vercel](https://docs.pingcap.com/tidbcloud/integrate-tidbcloud-with-vercel).
-
-### Cloudflare Workers
+Cloudflare Workers:
 
 ```ts
 import { connect } from '@tidbcloud/serverless'
@@ -121,9 +79,7 @@ export default {
 }
 ```
 
-Learn more about [using TiDB Cloud serverless driver in Cloudflare Workers](https://docs.pingcap.com/tidbcloud/integrate-tidbcloud-with-cloudflare).
-
-### Netlify Edge Function
+Netlify Edge Function:
 
 ```ts
 import { connect } from 'https://esm.sh/@tidbcloud/serverless'
@@ -135,9 +91,7 @@ export default async () => {
 }
 ```
 
-Learn more about [using TiDB Cloud serverless driver in Netlify](https://docs.pingcap.com/tidbcloud/integrate-tidbcloud-with-netlify#use-the-edge-function).
-
-### Deno
+Deno:
 
 ```ts
 import { connect } from 'npm:@tidbcloud/serverless'
@@ -146,7 +100,7 @@ const conn = connect({ url: Deno.env.get('DATABASE_URL') })
 const result = await conn.execute('show tables')
 ```
 
-### Bun
+Bun:
 
 ```ts
 import { connect } from '@tidbcloud/serverless'
@@ -155,195 +109,49 @@ const conn = connect({ url: Bun.env.DATABASE_URL })
 const result = await conn.execute('show tables')
 ```
 
-## Configure the serverless driver
+## Configuration (essentials)
 
-You can configure TiDB Cloud serverless driver at both the connection level and the SQL level.
+Connection‑level options:
 
-### Connection level configurations
+- `url`: `mysql://[username]:[password]@[host]/[database]` (preferred)
+- `fetch`: custom fetch (e.g., `undici` in Node.js)
+- `arrayMode`: return rows as arrays
+- `fullResult`: return full result object
+- `decoders`: custom per‑column type decoders
 
-| Name         | Type     | Default value | Description |
-|--------------|----------|---------------|-------------|
-| `username`   | string   | N/A           | Username of the cluster. |
-| `password`   | string   | N/A           | Password of the cluster. |
-| `host`       | string   | N/A           | Hostname of the cluster. |
-| `database`   | string   | `test`        | Database of the cluster. |
-| `url`        | string   | N/A           | The URL for the database, in the `mysql://[username]:[password]@[host]/[database]` format, where `database` can be skipped if you intend to connect to the default database. |
-| `fetch`      | function | global fetch  | Custom fetch function. For example, you can use the `undici` fetch in Node.js. |
-| `arrayMode`  | bool     | `false`       | Whether to return results as arrays instead of objects. To get better performance, set it to `true`. |
-| `fullResult` | bool     | `false`       | Whether to return full result object instead of just rows. To get more detailed results, set it to `true`. |
-| `decoders`   | object   | `{}`          | A collection of key-value pairs to customize decoding for column types. Each function takes a raw string value and returns the decoded value. |
+SQL‑level options (override connection level):
 
-**Database URL**
+- `arrayMode`, `fullResult`, `decoders`
+- `isolation`: `READ COMMITTED` or `REPEATABLE READ` (only for `begin`)
 
-> **Note:**
->
-> If your username, password, or database name contains special characters, you must [percentage-encode](https://en.wikipedia.org/wiki/Percent-encoding) these characters when passing them by the URL. For example, the password `password1@//?` needs to be encoded as `password1%40%2F%2F%3F` in the URL.
+URL encoding note: percent‑encode special characters in username/password/database. Example: `password1@//?` → `password1%40%2F%2F%3F`.
 
-When `url` is configured, there is no need to configure `host`, `username`, `password`, and `database` separately. The following codes are equivalent:
-
-```ts
-const config = {
-  host: '<host>',
-  username: '<user>',
-  password: '<password>',
-  database: '<database>',
-  arrayMode: true
-}
-
-const conn = connect(config)
-```
-
-```ts
-const config = {
-  url: process.env['DATABASE_URL'] || 'mysql://[username]:[password]@[host]/[database]',
-  arrayMode: true
-}
-
-const conn = connect(config)
-```
-
-### SQL level options
-
-> **Note:**
->
-> The SQL level options have a higher priority over connection level configurations.
-
-| Option       | Type   | Default value     | Description |
-|--------------|--------|-------------------|-------------|
-| `arrayMode`  | bool   | `false`           | Whether to return results as arrays instead of objects. To get better performance, set it to `true`. |
-| `fullResult` | bool   | `false`           | Whether to return the full result object instead of just rows. To get more detailed results, set it to `true`. |
-| `isolation`  | string | `REPEATABLE READ` | The transaction isolation level, which can be set to `READ COMMITTED` or `REPEATABLE READ`. |
-| `decoders`   | object | `{}`              | A collection of key-value pairs for column type decoders. SQL-level decoders override connection-level decoders for the same key. |
-
-**arrayMode and fullResult**
-
-To return the full result object as arrays, you can configure the `arrayMode` and `fullResult` options:
-
-```ts
-const conn = connect({ url: process.env['DATABASE_URL'] || 'mysql://[username]:[password]@[host]/[database]' })
-const results = await conn.execute('select * from test', null, { arrayMode: true, fullResult: true })
-```
-
-**isolation**
-
-The `isolation` option can only be used in the `begin` function.
-
-```ts
-const conn = connect({ url: 'mysql://[username]:[password]@[host]/[database]' })
-const tx = await conn.begin({ isolation: 'READ COMMITTED' })
-```
-
-**decoders**
-
-To customize the format of returned column values, configure the `decoders` option in `connect()`:
-
-```ts
-import { connect, ColumnType } from '@tidbcloud/serverless'
-
-const conn = connect({
-  url: 'mysql://[username]:[password]@[host]/[database]',
-  decoders: {
-    [ColumnType.BIGINT]: (rawValue: string) => BigInt(rawValue),
-    [ColumnType.DATETIME]: (rawValue: string) => new Date(rawValue)
-  }
-})
-
-conn.execute('select ...', [], {
-  decoders: {
-    // ...
-  }
-})
-```
-
-> **Note:**
->
-> TiDB Cloud serverless driver configuration changes:
->
-> - v0.0.7: add the SQL level option `isolation`.
-> - v0.0.10: add the connection level configuration `decoders` and the SQL level option `decoders`.
+`url` replaces separate `host`, `username`, `password`, `database` fields.
 
 ## Features
 
-### Supported SQL statements
+Supported SQL: `SELECT`, `SHOW`, `EXPLAIN`, `USE`, `INSERT`, `UPDATE`, `DELETE`, `BEGIN`, `COMMIT`, `ROLLBACK`, `SET`, plus DDL.
 
-DDL is supported and the following SQL statements are supported: `SELECT`, `SHOW`, `EXPLAIN`, `USE`, `INSERT`, `UPDATE`, `DELETE`, `BEGIN`, `COMMIT`, `ROLLBACK`, and `SET`.
+Data type mapping (summary):
 
-### Data type mapping
+- Numeric types → `number`
+- `BIGINT`, `DECIMAL` → `string`
+- Binary/blob/bit → `Uint8Array`
+- `JSON` → `object`
+- `DATETIME`, `TIMESTAMP`, `DATE`, `TIME` → `string`
 
-The type mapping between TiDB and JavaScript is as follows:
-
-| TiDB data type       | JavaScript type |
-|----------------------|-----------------|
-| TINYINT              | number          |
-| UNSIGNED TINYINT     | number          |
-| BOOL                 | number          |
-| SMALLINT             | number          |
-| UNSIGNED SMALLINT    | number          |
-| MEDIUMINT            | number          |
-| INT                  | number          |
-| UNSIGNED INT         | number          |
-| YEAR                 | number          |
-| FLOAT                | number          |
-| DOUBLE               | number          |
-| BIGINT               | string          |
-| UNSIGNED BIGINT      | string          |
-| DECIMAL              | string          |
-| CHAR                 | string          |
-| VARCHAR              | string          |
-| BINARY               | Uint8Array      |
-| VARBINARY            | Uint8Array      |
-| TINYTEXT             | string          |
-| TEXT                 | string          |
-| MEDIUMTEXT           | string          |
-| LONGTEXT             | string          |
-| TINYBLOB             | Uint8Array      |
-| BLOB                 | Uint8Array      |
-| MEDIUMBLOB           | Uint8Array      |
-| LONGBLOB             | Uint8Array      |
-| DATE                 | string          |
-| TIME                 | string          |
-| DATETIME             | string          |
-| TIMESTAMP            | string          |
-| ENUM                 | string          |
-| SET                  | string          |
-| BIT                  | Uint8Array      |
-| JSON                 | object          |
-| NULL                 | null            |
-| Others               | string          |
-
-> **Note:**
->
-> Make sure to use the default `utf8mb4` character set in TiDB Cloud for the type conversion to JavaScript strings, because TiDB Cloud serverless driver uses the UTF-8 encoding to decode them to strings.
-
-> **Note:**
->
-> TiDB Cloud serverless driver data type mapping changes:
->
-> - v0.1.0: the `BINARY`, `VARBINARY`, `TINYBLOB`, `BLOB`, `MEDIUMBLOB`, `LONGBLOB`, and `BIT` types are now returned as a `Uint8Array` instead of a `string`.
-
-### ORM integrations
-
-TiDB Cloud serverless driver has been integrated with the following ORMs:
-
-- [TiDB Cloud serverless driver Kysely dialect](https://github.com/tidbcloud/kysely).
-- [TiDB Cloud serverless driver Prisma adapter](https://github.com/tidbcloud/prisma-adapter).
+Use `utf8mb4` for correct string decoding. Since v0.1.0, binary/blob/bit types return `Uint8Array` (not `string`).
 
 ## Pricing
 
-The serverless driver itself is free, but accessing data with the driver generates Request Units (RUs) and storage usage.
+The driver is free. Usage consumes Request Units (RUs) and storage:
 
-- For Starter clusters, pricing follows the Starter pricing model: https://www.pingcap.com/tidb-cloud-starter-pricing-details/
-- For Essential clusters, pricing follows the Essential pricing model: https://www.pingcap.com/tidb-cloud-essential-pricing-details/
+- Starter pricing: https://www.pingcap.com/tidb-cloud-starter-pricing-details/
+- Essential pricing: https://www.pingcap.com/tidb-cloud-essential-pricing-details/
 
 ## Limitations
 
-Currently, using serverless driver has the following limitations:
-
-- Up to 10,000 rows can be fetched in a single query.
-- You can execute only a single SQL statement at a time. Multiple SQL statements in one query are not supported yet.
-- Connection with private endpoints is not supported yet.
-- The server blocks requests from unauthorized browser origins via CORS to protect your credentials. As a result, you can use the serverless driver only from backend services.
-
-## What's next
-
-- Learn how to use the serverless driver in a local Node.js project: https://docs.pingcap.com/tidbcloud/serverless-driver-node-example
+- Max 10,000 rows per query.
+- One SQL statement per query.
+- Private endpoints not supported.
+- CORS blocks unauthorized browser origins; use from backend services only.

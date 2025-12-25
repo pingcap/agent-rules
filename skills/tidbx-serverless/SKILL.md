@@ -5,7 +5,7 @@ description: Guidance for using the TiDB Cloud Serverless Driver (Beta) in Node.
 
 # TiDB Cloud Serverless Driver (Beta)
 
-Use this skill to guide users who need the TiDB Cloud serverless driver in serverless or edge environments.
+Use this skill to guide users who need the TiDB Cloud serverless driver (Beta) in serverless or edge environments.
 
 ## Introduction
 
@@ -17,18 +17,13 @@ Serverless and edge runtimes often do not support long-lived TCP connections. Tr
 
 ## Tutorials (References)
 
-Use the reference files for step-by-step tutorials and code samples. Load only what you need, and use the table of contents in each reference to jump to the right section:
+Use the reference file for the canonical driver overview, examples, configuration, and limitations. Load only what you need, and use the table of contents to jump to the right section:
 
-- Overview and configuration: `references/serverless-driver.md`
-- Node.js tutorial: `references/nodejs.md`
-- Prisma adapter tutorial: `references/prisma.md`
-- Kysely tutorial: `references/kysely.md`
-- Drizzle tutorial: `references/drizzle.md`
+- Source of truth: `references/serverless-driver.md`
 
 ## Usage Guidance
 
 - Confirm the cluster type: Starter or Essential.
-- Ask which runtime and ORM they use: Node.js, Vercel Edge, Cloudflare Workers, Netlify, Deno, Bun, Prisma, Kysely, Drizzle.
+- Ask which runtime they use: Node.js, Vercel Edge, Cloudflare Workers, Netlify, Deno, Bun.
 - Use the connection string from the TiDB Cloud console. In **Connect**, choose **Serverless Driver**, then generate/reset the password before copying `DATABASE_URL`.
-- For Node.js < 18, use `undici` as shown in `references/nodejs.md`.
 - For provisioning or cluster CRUD, use the `tidbx` skill.

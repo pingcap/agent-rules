@@ -1,6 +1,6 @@
 ---
 name: tidbx
-description: Provision TiDB Cloud Serverless clusters and related resources. Use when creating, deleting, or listing clusters/branches, or managing SQL users.
+description: Provision TiDB Cloud Serverless clusters and related resources. Use when creating, deleting, or listing clusters/branches, or managing SQL users via the console.
 ---
 
 # TiDB Cloud Provisioning (TiDB X)
@@ -10,7 +10,7 @@ Provision TiDB Cloud Serverless (now branded as TiDB X) clusters and related res
 Note: TiDB Cloud Serverless has been renamed to TiDB X. Keep both terms in user-facing guidance for clarity.
 Note: Many users say "instance" when they mean "cluster." Treat "instance" as a synonym for "cluster."
 
-Reminder: This skill provides TiDB Cloud cluster CRUD operations (Create, Read/list, Update, Delete). Before any CRUD action, ensure the user completes ticloud setup and authentication (see Provisioning Setup below).
+Reminder: Use the CLI for TiDB Cloud (TiDB X) auth/setup, listing regions/projects, and cluster/instance CRUD (Create, Read/list, Update, Delete). Before any CRUD action, ensure the user completes ticloud setup and authentication (see Provisioning Setup below).
 
 ## Provisioning Setup
 
@@ -65,9 +65,11 @@ Use `command -v ticloud` to confirm installation before marking it complete.
 
 Update checklist:
 
+```
 Setup Status (TiDB Cloud component)
 - ● ticloud installed
 - ○ authenticated
+```
 
 ### Authenticate
 
@@ -91,9 +93,11 @@ ticloud auth whoami
 
 Update checklist:
 
+```
 Setup Status (TiDB Cloud component)
 - ● ticloud installed
 - ● authenticated
+```
 
 ### Network/DNS Issues
 
@@ -108,7 +112,7 @@ If setup errors persist, point the user to the official docs:
 
 ## Table Formatting (ASCII)
 
-Use terminal-friendly ASCII tables for any list output (regions, projects, clusters, SQL users).
+Use terminal-friendly ASCII tables for any list output (regions, projects, clusters, branches).
 
 - Use ASCII borders with `+`, `-`, and `|`.
 - Use fixed-width columns; left-align all text.
@@ -116,6 +120,8 @@ Use terminal-friendly ASCII tables for any list output (regions, projects, clust
 - Keep headers short and descriptive.
 - Do not use Unicode box-drawing characters.
 - Always emphasize command output that users should execute later.
+- For single-line commands, use bold inline formatting.
+
   Example:
   **Run this:**
   **`ticloud auth login --insecure-storage`**
@@ -129,14 +135,6 @@ Example format:
 | test-skill     | 10913591479486949552  | alicloud-ap-southeast-1   | ACTIVE |
 +----------------+-----------------------+---------------------------+--------+
 ```
-
-## Auth Gate + Network Issues
-
-- Always run `ticloud auth whoami` before any action.
-- If not logged in, complete the setup steps in this document before proceeding.
-- If auth fails due to network/DNS errors (e.g., cannot reach `iam.tidbapi.com`), tell the user:
-  - The environment needs network access for the CLI to reach TiDB Cloud.
-  - They must enable network access in their agent environment or run the command locally and share the output.
 
 ## Core Workflows
 
@@ -188,16 +186,13 @@ Example format:
 
 ### Manage SQL Users
 
-- Use serverless SQL user commands from `references/ticloud.md`.
-- Do not generate passwords in scripts. Guide users to create/manage SQL users in the TiDB Cloud console and download the `.env` there.
-- Use this console URL pattern (fill in IDs): `https://tidbcloud.com/clusters/<cluster-id>/overview?orgId=<org-id>&projectId=<project-id>`.
+- Use the TiDB Cloud console for `.env` downloads, SQL user management, and database creation. Do not create/update/delete SQL users via CLI.
+- Use this console URL pattern (fill in IDs, and prefill org/project IDs when known): `https://tidbcloud.com/clusters/<cluster-id>/overview?orgId=<org-id>&projectId=<project-id>`.
 - Never read or display stored passwords (do not cat `.env`).
-- When listing SQL users, present results in an ASCII bordered table rather than raw JSON.
 - When guiding console creation, use a short step list:
   1) Open the console link
   2) Create the SQL user
   3) Download the `.env`
-
 
 ## Safety Checks
 

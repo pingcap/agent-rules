@@ -3,9 +3,11 @@ name: tidbx
 description: Provision TiDB Cloud Serverless clusters and related resources. Use when creating, deleting, or listing clusters/branches, managing SQL users, or importing/exporting data.
 ---
 
-# TiDB Cloud Provisioning
+# TiDB Cloud Provisioning (TiDB X)
 
-Provision TiDB Cloud Serverless clusters and related resources using the workflows below. Use the command patterns in the references file as implementation details, but keep the focus on the provisioning outcome and required inputs.
+Provision TiDB Cloud Serverless (now branded as TiDB X) clusters and related resources using the workflows below. Use the command patterns in the references file as implementation details, but keep the focus on the provisioning outcome and required inputs.
+
+Note: TiDB Cloud Serverless has been renamed to TiDB X. Keep both terms in user-facing guidance for clarity.
 
 Reminder: This skill provides TiDB Cloud cluster CRUD operations (Create, Read/list, Update, Delete). Before any CRUD action, ensure the user completes ticloud setup and authentication (see Provisioning Setup below).
 

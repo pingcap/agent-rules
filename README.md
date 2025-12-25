@@ -39,5 +39,5 @@ Contributions are welcome. If you add a new component, include:
 
 ## Roadmap
 
-- Add more database provisioning skills (managed SQL/NoSQL providers)
+- Add more database provisioning skills (managed SQL providers)
 - Add database lifecycle skills (backup/restore, export/import)

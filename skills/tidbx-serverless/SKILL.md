@@ -19,7 +19,7 @@ TiDB Cloud serverless driver (Beta) for JavaScript lets you connect to your TiDB
 
 ## Tutorials (References)
 
-Use the reference files for step-by-step tutorials and code samples. Load only what is needed:
+Use the reference files for step-by-step tutorials and code samples. Load only what is needed, and prefer the table of contents in each reference to jump to the right section:
 
 - Overview and configuration: `references/serverless-driver.md`
 - Node.js tutorial: `references/nodejs.md`

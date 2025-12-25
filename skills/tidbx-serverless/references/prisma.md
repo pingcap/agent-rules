@@ -1,5 +1,18 @@
 # TiDB Cloud Serverless Driver Prisma Tutorial
 
+## Table of contents
+
+- [Install](#install)
+- [Enable `driverAdapters`](#enable-driveradapters)
+- [Initialize Prisma Client](#initialize-prisma-client)
+- [Use the Prisma adapter in Node.js environments](#use-the-prisma-adapter-in-nodejs-environments)
+  - [Before you begin](#before-you-begin)
+  - [Step 1. Create a project](#step-1-create-a-project)
+  - [Step 2. Set the environment](#step-2-set-the-environment)
+  - [Step 3. Define your schema](#step-3-define-your-schema)
+  - [Step 4. Execute CRUD operations](#step-4-execute-crud-operations)
+- [Use the Prisma adapter in edge environments](#use-the-prisma-adapter-in-edge-environments)
+
 [Prisma](https://www.prisma.io/docs) is an open source next-generation ORM that helps developers interact with their database in an intuitive, efficient, and safe way. TiDB Cloud offers [@tidbcloud/prisma-adapter](https://github.com/tidbcloud/prisma-adapter), enabling you to use Prisma Client over HTTPS with TiDB Cloud serverless driver. Compared with the traditional TCP way, @tidbcloud/prisma-adapter brings:
 
 - Better performance of Prisma Client in serverless environments

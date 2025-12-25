@@ -1,5 +1,21 @@
 # TiDB Cloud Serverless Driver Kysely Tutorial
 
+## Table of contents
+
+- [Use TiDB Cloud Kysely dialect in Node.js environments](#use-tidb-cloud-kysely-dialect-in-nodejs-environments)
+  - [Before you begin](#before-you-begin)
+  - [Step 1. Create a project](#step-1-create-a-project)
+  - [Step 2. Set the environment](#step-2-set-the-environment)
+  - [Step 3. Use Kysely to query data](#step-3-use-kysely-to-query-data)
+  - [Step 4. Run the Typescript code](#step-4-run-the-typescript-code)
+- [Use TiDB Cloud Kysely dialect in edge environments](#use-tidb-cloud-kysely-dialect-in-edge-environments)
+  - [Before you begin](#before-you-begin-1)
+  - [Step 1. Create a project](#step-1-create-a-project-1)
+  - [Step 2. Set the environment](#step-2-set-the-environment-1)
+  - [Step 3. Create an edge function](#step-3-create-an-edge-function)
+  - [Step 4. Deploy your code to Vercel](#step-4-deploy-your-code-to-vercel)
+- [What's next](#whats-next)
+
 [Kysely](https://kysely.dev/docs/intro) is a type-safe and autocompletion-friendly TypeScript SQL query builder. TiDB Cloud offers [@tidbcloud/kysely](https://github.com/tidbcloud/kysely), enabling you to use Kysely over HTTPS with TiDB Cloud serverless driver. Compared with the traditional TCP way, @tidbcloud/kysely brings:
 
 - Better performance in serverless environments.

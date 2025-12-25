@@ -1,5 +1,12 @@
 # TiDB Cloud Serverless Driver Node.js Tutorial
 
+## Table of contents
+
+- [Before you begin](#before-you-begin)
+- [Step 1. Create a local Node.js project](#step-1-create-a-local-nodejs-project)
+- [Step 2. Use the serverless driver](#step-2-use-the-serverless-driver)
+- [Compatibility with earlier versions of Node.js](#compatibility-with-earlier-versions-of-nodejs)
+
 This tutorial describes how to use TiDB Cloud serverless driver in a local Node.js project.
 
 > **Note:**

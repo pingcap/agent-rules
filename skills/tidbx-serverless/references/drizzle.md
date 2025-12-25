@@ -1,5 +1,21 @@
 # TiDB Cloud Serverless Driver Drizzle Tutorial
 
+## Table of contents
+
+- [Use Drizzle and TiDB Cloud serverless driver in Node.js environments](#use-drizzle-and-tidb-cloud-serverless-driver-in-nodejs-environments)
+  - [Before you begin](#before-you-begin)
+  - [Step 1. Create a project](#step-1-create-a-project)
+  - [Step 2. Set the environment](#step-2-set-the-environment)
+  - [Step 3. Use Drizzle to query data](#step-3-use-drizzle-to-query-data)
+  - [Step 4. Run the Typescript code](#step-4-run-the-typescript-code)
+- [Use Drizzle and TiDB Cloud serverless driver in edge environments](#use-drizzle-and-tidb-cloud-serverless-driver-in-edge-environments)
+  - [Before you begin](#before-you-begin-1)
+  - [Step 1. Create a project](#step-1-create-a-project-1)
+  - [Step 2. Set the environment](#step-2-set-the-environment-1)
+  - [Step 3. Create an edge function](#step-3-create-an-edge-function)
+  - [Step 4. Deploy your code to Vercel](#step-4-deploy-your-code-to-vercel)
+- [What's next](#whats-next)
+
 [Drizzle ORM](https://orm.drizzle.team/) is a lightweight and performant TypeScript ORM with developer experience in mind. Starting from `drizzle-orm@0.31.2`, it supports [drizzle-orm/tidb-serverless](https://orm.drizzle.team/docs/get-started-mysql#tidb-serverless), enabling you to use Drizzle over HTTPS with TiDB Cloud serverless driver.
 
 This tutorial describes how to use TiDB Cloud serverless driver with Drizzle in Node.js environments and edge environments.

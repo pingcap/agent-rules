@@ -1,5 +1,29 @@
 # TiDB Cloud Serverless Driver (Beta)
 
+## Table of contents
+
+- [Why use TiDB Cloud Serverless Driver (Beta)](#why-use-tidb-cloud-serverless-driver-beta)
+- [Install the serverless driver](#install-the-serverless-driver)
+- [Use the serverless driver](#use-the-serverless-driver)
+  - [Query](#query)
+  - [Transaction (experimental)](#transaction-experimental)
+- [Edge examples](#edge-examples)
+  - [Vercel Edge Function](#vercel-edge-function)
+  - [Cloudflare Workers](#cloudflare-workers)
+  - [Netlify Edge Function](#netlify-edge-function)
+  - [Deno](#deno)
+  - [Bun](#bun)
+- [Configure the serverless driver](#configure-the-serverless-driver)
+  - [Connection level configurations](#connection-level-configurations)
+  - [SQL level options](#sql-level-options)
+- [Features](#features)
+  - [Supported SQL statements](#supported-sql-statements)
+  - [Data type mapping](#data-type-mapping)
+  - [ORM integrations](#orm-integrations)
+- [Pricing](#pricing)
+- [Limitations](#limitations)
+- [What's next](#whats-next)
+
 > **Note:**
 >
 > The serverless driver is in beta and only applicable to Starter or Essential clusters.

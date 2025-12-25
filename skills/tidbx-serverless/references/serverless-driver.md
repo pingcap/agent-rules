@@ -30,9 +30,9 @@
 
 ## Why use TiDB Cloud Serverless Driver (Beta)
 
-Traditional TCP-based MySQL drivers are not suitable for serverless functions due to their expectation of long-lived, persistent TCP connections, which contradict the short-lived nature of serverless functions. Moreover, in edge environments such as [Vercel Edge Functions](https://vercel.com/docs/functions/edge-functions) and [Cloudflare Workers](https://workers.cloudflare.com/), where comprehensive TCP support and full Node.js compatibility may be lacking, these drivers may not work at all.
+Traditional TCP-based MySQL drivers expect long-lived TCP connections. Serverless and edge runtimes are short-lived and often lack full TCP support, so those drivers can fail or perform poorly.
 
-[TiDB Cloud serverless driver (Beta)](https://github.com/tidbcloud/serverless-js) for JavaScript lets you connect to your Starter or Essential cluster over HTTP, which is generally supported by serverless environments. With it, it is now possible to connect to Starter or Essential clusters from edge environments and reduce connection overhead with TCP while keeping the similar development experience of traditional TCP-based MySQL drivers.
+[TiDB Cloud serverless driver (Beta)](https://github.com/tidbcloud/serverless-js) uses HTTP to connect to Starter or Essential clusters. HTTP works well in serverless and edge environments, while keeping a similar developer experience to TCP-based drivers.
 
 > **Note:**
 >

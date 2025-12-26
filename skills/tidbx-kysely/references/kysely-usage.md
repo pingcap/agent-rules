@@ -33,28 +33,8 @@ await db.destroy()
 
 ## Serverless usage (HTTP via @tidbcloud/kysely) - only for serverless/edge
 
-```ts
-import { Kysely } from 'kysely'
-import { TiDBCloudServerlessDialect } from '@tidbcloud/kysely'
-
-interface Database {
-  users: {
-    id: number
-    email: string
-  }
-}
-
-const db = new Kysely<Database>({
-  dialect: new TiDBCloudServerlessDialect({
-    url: process.env.DATABASE_URL,
-  }),
-})
-
-const users = await db.selectFrom('users').selectAll().execute()
-console.log(users)
-
-await db.destroy()
-```
+Use the full tutorial in `references/serverless-kysely-tutorial.md` for setup and
+step-by-step instructions in Node.js and edge environments.
 
 ## Install
 

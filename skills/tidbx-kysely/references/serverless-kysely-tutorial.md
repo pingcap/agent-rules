@@ -17,7 +17,7 @@ npm install kysely @tidbcloud/kysely @tidbcloud/serverless
 
 ```ts
 import { Kysely, GeneratedAlways, Selectable } from 'kysely'
-import { TiDBServerlessDialect } from '@tidbcloud/kysely'
+import { TiDBCloudServerlessDialect } from '@tidbcloud/kysely'
 
 interface Database {
   person: PersonTable
@@ -30,7 +30,7 @@ interface PersonTable {
 }
 
 const db = new Kysely<Database>({
-  dialect: new TiDBServerlessDialect({ url: process.env.DATABASE_URL }),
+  dialect: new TiDBCloudServerlessDialect({ url: process.env.DATABASE_URL }),
 })
 
 type Person = Selectable<PersonTable>
@@ -57,7 +57,7 @@ npm install kysely @tidbcloud/kysely @tidbcloud/serverless
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { Kysely, GeneratedAlways, Selectable } from 'kysely'
-import { TiDBServerlessDialect } from '@tidbcloud/kysely'
+import { TiDBCloudServerlessDialect } from '@tidbcloud/kysely'
 
 export const runtime = 'edge'
 
@@ -72,7 +72,7 @@ interface PersonTable {
 }
 
 const db = new Kysely<Database>({
-  dialect: new TiDBServerlessDialect({ url: process.env.DATABASE_URL }),
+  dialect: new TiDBCloudServerlessDialect({ url: process.env.DATABASE_URL }),
 })
 
 type Person = Selectable<PersonTable>

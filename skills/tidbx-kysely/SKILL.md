@@ -23,7 +23,8 @@ HTTP for serverless or edge runtimes.
 ## Normal usage (default)
 
 Use this for Node servers, long-lived runtimes, or when TCP is available. This is the
-primary path unless the user explicitly needs serverless/edge.
+primary path unless the user explicitly needs serverless/edge. Uses TCP with a `mysql2`
+pool.
 
 ```ts
 import { Kysely, MysqlDialect } from 'kysely'
@@ -36,7 +37,9 @@ const db = new Kysely({ dialect: new MysqlDialect({ pool }) })
 ## Serverless/edge usage (HTTP)
 
 Use this only when the runtime cannot keep TCP connections (serverless/edge). Requires
-the TiDB Cloud serverless driver and Starter/Essential clusters.
+the TiDB Cloud serverless driver and Starter/Essential clusters. Use from backend
+services only (browser origins may be blocked by CORS). See
+`references/serverless-kysely-tutorial.md` for the full walkthrough.
 
 ```ts
 import { Kysely } from 'kysely'

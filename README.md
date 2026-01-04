@@ -28,7 +28,8 @@ The repo is centered around the `skills/` directory:
 
 - Browse the `skills/` directory for capability-specific instructions.
 - Use skills to provision or manage database resources.
-- Use the TiDB Cloud Kysely skill for app-side integration patterns.
+- Use `tidbx-serverless-driver` for serverless driver and edge runtime guidance.
+- Use `tidbx-kysely` for Kysely integration patterns (TCP + serverless/edge).
 
 ## Contributing
 

@@ -24,20 +24,20 @@ AgenticStore is a repo for designing and curating SKILLS for code agents. It foc
 The repo is centered around the `skills/` directory:
 
 - `skills/` - skill definitions and instructions
-- `skills/CONVENTIONS.md` - repo conventions for skill authoring
 
 ## How to Use
 
 - Browse the `skills/` directory for capability-specific instructions.
 - Use skills to provision, connect to, or manage database resources.
 - Open the relevant `SKILL.md` for step-by-step guidance and prerequisites.
-- Follow `skills/CONVENTIONS.md` when adding or updating skills.
 
 ## Skill Authoring
 
-- Start with `SKILL.md` YAML frontmatter: `name`, `description`, and optional `allowed-tools`.
+- Skill folders use lowercase letters, digits, and hyphens (e.g., `object-storage-s3`).
+- Each skill must include `SKILL.md` with YAML frontmatter containing `name`, `description`, and optional `allowed-tools`.
 - Keep the body concise with a clear "when to use" section and a short workflow.
 - Move long docs into `references/` and prefer runnable scripts or templates in `scripts/` or `assets/`.
+- Avoid extra docs inside skill folders (no README or changelog).
 
 ## Current Skills
 

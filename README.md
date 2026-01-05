@@ -14,7 +14,8 @@ AgenticStore is a repo for designing and curating SKILLS for code agents. It foc
 
 ## Scope (Current + Planned)
 
-- TiDB Cloud serverless provisioning (clusters, branches, users, import/export)
+- TiDB Cloud provisioning and lifecycle workflows
+- TiDB Cloud serverless driver usage and edge runtime guidance
 - TiDB Cloud Kysely usage (TCP + serverless/edge)
 - More managed database providers (planned)
 
@@ -23,13 +24,26 @@ AgenticStore is a repo for designing and curating SKILLS for code agents. It foc
 The repo is centered around the `skills/` directory:
 
 - `skills/` - skill definitions and instructions
+- `skills/CONVENTIONS.md` - repo conventions for skill authoring
 
 ## How to Use
 
 - Browse the `skills/` directory for capability-specific instructions.
-- Use skills to provision or manage database resources.
-- Use `tidbx-serverless-driver` for serverless driver and edge runtime guidance.
-- Use `tidbx-kysely` for Kysely integration patterns (TCP + serverless/edge).
+- Use skills to provision, connect to, or manage database resources.
+- Open the relevant `SKILL.md` for step-by-step guidance and prerequisites.
+- Follow `skills/CONVENTIONS.md` when adding or updating skills.
+
+## Skill Authoring
+
+- Start with `SKILL.md` YAML frontmatter: `name`, `description`, and optional `allowed-tools`.
+- Keep the body concise with a clear "when to use" section and a short workflow.
+- Move long docs into `references/` and prefer runnable scripts or templates in `scripts/` or `assets/`.
+
+## Current Skills
+
+- `tidbx` - TiDB Cloud provisioning and lifecycle workflows.
+- `tidbx-serverless-driver` - Serverless HTTP driver usage and edge runtime guidance.
+- `tidbx-kysely` - Kysely integration patterns (TCP + serverless/edge).
 
 ## Contributing
 

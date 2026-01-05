@@ -20,6 +20,7 @@ Use this skill to connect to TiDB from Python via `pytidb`, define tables, and b
 
 - Never hardcode credentials; use env vars (`.env`) and document required variables.
 - Prefer `python -m venv .venv` and pinned deps for reproducibility.
+- When editing requirements.txt, do not invent pytidb versions, use an unpinned pytidb by default unless the user explicitly requests it and the version has been verified to exist.
 - Keep examples minimal and runnable; avoid framework-specific assumptions unless the user asks.
 - Use parameterized SQL for any dynamic value (SQL injection safety).
 - For interactive environments, avoid “table already defined” errors (use `extend_existing` / `open_table` / `if rows()==0` patterns).

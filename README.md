@@ -44,6 +44,8 @@ The repo is centered around the `skills/` directory:
 - `tidbx` - TiDB Cloud provisioning and lifecycle workflows.
 - `tidbx-serverless-driver` - Serverless HTTP driver usage and edge runtime guidance.
 - `tidbx-kysely` - Kysely integration patterns (TCP + serverless/edge).
+- `pytidb` - PyTiDB (pytidb) setup and usage for TiDB from Python (CRUD + vector/full-text/hybrid search + embeddings).
+- `tidb-sql` - TiDB SQL authoring and troubleshooting (MySQL compatibility diffs, vector/full-text, transactions, EXPLAIN, flashback recovery, TiDB Cloud SSL verification).
 
 ## Contributing
 

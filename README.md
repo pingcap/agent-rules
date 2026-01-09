@@ -44,6 +44,10 @@ The repo is centered around the `skills/` directory:
 - `tidbx` - TiDB Cloud provisioning and lifecycle workflows.
 - `tidbx-serverless-driver` - Serverless HTTP driver usage and edge runtime guidance.
 - `tidbx-kysely` - Kysely integration patterns (TCP + serverless/edge).
+- `tidbx-prisma` - Prisma ORM setup (schema, migrations, typed client) for TiDB.
+- `tidbx-nextjs` - Next.js App Router patterns for TiDB (route handlers, runtimes, Vercel/serverless).
+- `tidbx-javascript-mysql2` - Node.js mysql2 driver connection patterns (TLS/CA, pool, transactions).
+- `tidbx-javascript-mysqljs` - Node.js mysqljs/mysql driver connection patterns (TLS/CA, pool, transactions).
 
 ## Contributing
 

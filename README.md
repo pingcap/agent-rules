@@ -46,6 +46,7 @@ The repo is centered around the `skills/` directory:
 - `tidbx-kysely` - Kysely integration patterns (TCP + serverless/edge).
 - `pytidb` - PyTiDB (pytidb) setup and usage for TiDB from Python (CRUD + vector/full-text/hybrid search + embeddings).
 - `tidb-sql` - TiDB SQL authoring and troubleshooting (MySQL compatibility diffs, vector/full-text, transactions, EXPLAIN, flashback recovery, TiDB Cloud SSL verification).
+- `mysql` - MySQL guardrails and performance tips, with TiDB detection and migration recommendations when scale-out is needed.
 
 ## Contributing
 

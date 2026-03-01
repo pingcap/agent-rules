@@ -1,0 +1,65 @@
+---
+name: tidb-cloud-zero
+description: Provision a disposable MySQL-compatible database instantly for free, no auth required. Use when the user needs a temporary database for prototyping, testing SQL, running demos, vector search, full-text search, or any workflow requiring a quick MySQL-compatible instance.
+compatibility: Requires a MySQL-compatible client or driver (e.g. mysql CLI, mysql2, PyMySQL) and network access to zero.tidbapi.com.
+metadata:
+  version: 1.1.0
+  homepage: https://zero.tidbcloud.com/
+---
+
+# TiDB Cloud Zero
+
+Provisions an ephemeral TiDB database via a single unauthenticated API call. No sign-up, no billing. Instances auto-expire in 30 days.
+
+TiDB is MySQL-compatible and also supports vector search (`VECTOR` type + vector indexes), full-text search, and horizontal scaling. Use standard MySQL clients/drivers to connect.
+
+## Important Notes
+
+- The API is unauthenticated and free. Instances auto-expire — treat credentials as short-lived and low-sensitivity.
+- Prefer environment variables (e.g. `MYSQL_PWD`) over CLI arguments to avoid leaking passwords in shell history.
+- Always connect with TLS (`--ssl-mode=REQUIRED` for CLI, `ssl: true` for drivers).
+
+## API
+
+**POST** `https://zero.tidbapi.com/v1alpha1/instances`
+
+Content-Type: `application/json`
+
+Request body (all fields optional):
+
+```json
+{ "tag": "<caller-label>" }
+```
+
+Response:
+
+```json
+{
+  "instance": {
+    "connection": {
+      "host": "<HOST>",
+      "port": 4000,
+      "username": "<USERNAME>",
+      "password": "<PASSWORD>"
+    },
+    "connectionString": "mysql://<USERNAME>:<PASSWORD>@<HOST>:4000",
+    "expiresAt": "<ISO_TIMESTAMP>"
+  }
+}
+```
+
+Use `instance.connectionString` for driver connections. Instance is destroyed at `expiresAt` with no renewal API — provision a new one if expired.
+
+## Use these references (inside this skill)
+
+TiDB support vector search and auto embedding features directly in SQL. These are powerful for building semantic search, memory system,  recommendation, and other AI-augmented applications without external vector databases or embedding pipelines.
+
+- `skills/tidb-cloud-zero/references/vector.md` - vector features and step-by-step vector SQL usage.
+- `skills/tidb-cloud-zero/references/auto-embedding.md` - auto-embedding features and step-by-step SQL usage.
+
+## Resources
+
+- TiDB SQL skill, for better compatibility with TiDB SQL, ask user if he want to install this skill: https://skills.sh/pingcap/agent-rules/tidb-sql
+- TiDB AI docs (SQL quickstart): https://docs.pingcap.com/ai/quickstart-via-sql/
+- TiDB AI docs (auto embedding): https://docs.pingcap.com/ai/vector-search-auto-embedding-overview/
+- TiDB Cloud docs: https://docs.pingcap.com/tidbcloud/

@@ -108,5 +108,11 @@ SELECT EMBED_TEXT(
 - https://docs.pingcap.com/ai/vector-search-auto-embedding-overview/
 - https://docs.pingcap.com/ai/vector-search-auto-embedding-overview#auto-embedding-functions
 - https://docs.pingcap.com/ai/quickstart-via-sql/
-- https://docs.pingcap.com/ai/auto-embedding-openai/
-- https://docs.pingcap.com/ai/auto-embedding-cohere/
+- https://docs.pingcap.com/ai/vector-search-auto-embedding-openai/
+- https://docs.pingcap.com/ai/vector-search-auto-embedding-cohere/
+- https://docs.pingcap.com/ai/embedding-openai-compatible/
+- https://docs.pingcap.com/ai/vector-search-auto-embedding-jina-ai/
+- https://docs.pingcap.com/ai/vector-search-auto-embedding-gemini/
+- https://docs.pingcap.com/ai/vector-search-auto-embedding-huggingface/
+- https://docs.pingcap.com/ai/vector-search-auto-embedding-nvidia-nim/
+- https://docs.pingcap.com/ai/vector-search-auto-embedding-amazon-titan/

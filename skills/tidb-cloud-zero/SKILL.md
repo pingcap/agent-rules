@@ -1,15 +1,15 @@
 ---
 name: tidb-cloud-zero
-description: Provision a disposable MySQL-compatible database instantly for free, no auth required. Use when the user needs a temporary database for prototyping, testing SQL, running demos, vector search, full-text search, or any workflow requiring a quick MySQL-compatible instance.
+description: Provision a disposable MySQL-compatible database instantly for free, no auth required. Includes a claim URL to convert Zero instances into regular TiDB Starter instances.
 compatibility: Requires a MySQL-compatible client or driver (e.g. mysql CLI, mysql2, PyMySQL) and network access to zero.tidbapi.com.
 metadata:
-  version: 1.1.0
+  version: 1.2.0
   homepage: https://zero.tidbcloud.com/
 ---
 
 # TiDB Cloud Zero
 
-Provisions an ephemeral TiDB database via a single unauthenticated API call. No sign-up, no billing. Instances auto-expire in 30 days.
+Provisions an ephemeral TiDB database via a single unauthenticated API call. No sign-up, no billing. Instances auto-expire in 30 days unless claimed.
 
 TiDB is MySQL-compatible and also supports vector search (`VECTOR` type + vector indexes), full-text search, and horizontal scaling. Use standard MySQL clients/drivers to connect.
 
@@ -18,6 +18,7 @@ TiDB is MySQL-compatible and also supports vector search (`VECTOR` type + vector
 - The API is unauthenticated and free. Instances auto-expire — treat credentials as short-lived and low-sensitivity.
 - Prefer environment variables (e.g. `MYSQL_PWD`) over CLI arguments to avoid leaking passwords in shell history.
 - Always connect with TLS (`--ssl-mode=REQUIRED` for CLI, `ssl: true` for drivers).
+- If the user wants to keep the instance, open `instance.claimInfo.claimUrl` before `expiresAt` to convert it into a regular TiDB Starter instance.
 
 ## API
 
@@ -36,19 +37,25 @@ Response:
 ```json
 {
   "instance": {
+    "id": "...",
     "connection": {
       "host": "<HOST>",
       "port": 4000,
       "username": "<USERNAME>",
       "password": "<PASSWORD>"
     },
-    "connectionString": "mysql://<USERNAME>:<PASSWORD>@<HOST>:4000",
+    "connectionString": "mysql:/...",
+    "claimInfo": {
+      "claimUrl": "https://tidbcloud.com/tidbs/claim/..."
+    },
     "expiresAt": "<ISO_TIMESTAMP>"
   }
 }
 ```
 
-Use `instance.connectionString` for driver connections. Instance is destroyed at `expiresAt` with no renewal API — provision a new one if expired.
+Use `instance.connectionString` for immediate driver connections.
+If persistence is needed, ask the user to open `instance.claimInfo.claimUrl` before `expiresAt` to claim it.
+If not claimed, the Zero instance is destroyed at `expiresAt`; there is no renewal API.
 
 ## Use these references (inside this skill)
 

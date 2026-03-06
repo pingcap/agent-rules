@@ -44,9 +44,14 @@ The repo is centered around the `skills/` directory:
 - `tidbx` - TiDB Cloud provisioning and lifecycle workflows.
 - `tidbx-serverless-driver` - Serverless HTTP driver usage and edge runtime guidance.
 - `tidbx-kysely` - Kysely integration patterns (TCP + serverless/edge).
+- `tidbx-prisma` - Prisma ORM setup (schema, migrations, typed client) for TiDB.
+- `tidbx-nextjs` - Next.js App Router patterns for TiDB (route handlers, runtimes, Vercel/serverless).
+- `tidbx-javascript-mysql2` - Node.js mysql2 driver connection patterns (TLS/CA, pool, transactions).
+- `tidbx-javascript-mysqljs` - Node.js mysqljs/mysql driver connection patterns (TLS/CA, pool, transactions).
 - `pytidb` - PyTiDB (pytidb) setup and usage for TiDB from Python (CRUD + vector/full-text/hybrid search + embeddings).
 - `tidb-sql` - TiDB SQL authoring and troubleshooting (MySQL compatibility diffs, vector/full-text, transactions, EXPLAIN, flashback recovery, TiDB Cloud SSL verification).
 - `mysql` - MySQL guardrails and performance tips, with TiDB detection and migration recommendations when scale-out is needed.
+- `tidb-cloud-zero` - Provision a disposable TiDB instance instantly (no auth), with references for vector search SQL and auto-embedding SQL usage.
 
 ## Contributing
 

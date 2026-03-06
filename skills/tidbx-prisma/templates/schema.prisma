@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique(map: "uk_player_on_name") @db.VarChar(50)
+  coins     Decimal  @default(0)
+  goods     Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  profile   Profile?
+
+  @@map("players")
+}
+
+model Profile {
+  playerId  Int    @id @map("player_id")
+  biography String @db.Text
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade, map: "fk_profile_on_player_id")
+
+  @@map("profiles")
+}
+

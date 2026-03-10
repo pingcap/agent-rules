@@ -24,6 +24,8 @@ TiDB is MySQL-compatible and also supports vector search (`VECTOR` type + vector
 
 **POST** `https://zero.tidbapi.com/v1beta1/instances`
 
+`/v1alpha1` is deprecated. You should migrate to `/v1beta1` as soon as possible.
+
 Content-Type: `application/json`
 
 Request body (all fields optional):

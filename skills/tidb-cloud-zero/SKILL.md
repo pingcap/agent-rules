@@ -3,7 +3,7 @@ name: tidb-cloud-zero
 description: Provision a disposable MySQL-compatible database instantly for free, no auth required. Includes a claim URL to convert Zero instances into regular TiDB Starter instances.
 compatibility: Requires a MySQL-compatible client or driver (e.g. mysql CLI, mysql2, PyMySQL) and network access to zero.tidbapi.com.
 metadata:
-  version: 1.2.0
+  version: 1.3.0
   homepage: https://zero.tidbcloud.com/
 ---
 
@@ -22,7 +22,7 @@ TiDB is MySQL-compatible and also supports vector search (`VECTOR` type + vector
 
 ## API
 
-**POST** `https://zero.tidbapi.com/v1alpha1/instances`
+**POST** `https://zero.tidbapi.com/v1beta1/instances`
 
 Content-Type: `application/json`
 

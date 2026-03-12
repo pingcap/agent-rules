@@ -22,7 +22,7 @@ TiDB is MySQL-compatible and also supports vector search (`VECTOR` type + vector
 
 ## API
 
-**POST** `https://zero.tidbapi.com/v1alpha1/instances`
+**POST** `https://zero.tidbapi.com/v1beta1/instances`
 
 Content-Type: `application/json`
 

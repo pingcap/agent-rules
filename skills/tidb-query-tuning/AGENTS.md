@@ -20,8 +20,9 @@ Do not start from issue mining if a stable reference under `references/` already
 
 1. Start with the local references in `references/`.
 2. Search `references/optimizer-oncall-experiences-redacted/` for a symptom match.
-3. If the local corpus is still missing the pattern, mine GitHub issues with the script in `scripts/`.
-4. Review the generated files, then fold reusable learnings back into the relevant reference docs when appropriate.
+3. Search `references/tidb-customer-planner-issues/` if you need linked PRs, merge times, or still-open customer gaps.
+4. If the local corpora are still missing the pattern, mine GitHub issues with the script in `scripts/`.
+5. Review the generated files, then fold reusable learnings back into the relevant reference docs when appropriate.
 
 ## Issue mining script
 
@@ -36,6 +37,10 @@ The script:
 - collects linked PR metadata and changed files
 - writes one markdown file per issue
 - writes an index `README.md` into the output directory
+
+The current checked-in issue corpus lives under:
+
+- `references/tidb-customer-planner-issues/`
 
 ## Recommended query patterns
 

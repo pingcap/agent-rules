@@ -23,6 +23,10 @@
    - **Subquery not handled well** → see `references/subquery-optimization.md`
    - **Wrong or missing index** → see `references/index-selection.md`
    - **Optimizer choosing a suboptimal plan despite good stats** → see `references/optimizer-hints.md` and `references/session-variables.md`
+   - **Stats are stale or auto analyze cannot keep up** → see `references/stats-health-and-auto-analyze.md`
+   - **Plans change after restart or sync stats loading times out** → see `references/stats-loading-and-startup.md`
+   - **Need to tune analyze version, column coverage, or memory-heavy stats collection** → see `references/stats-version-and-analyze-configuration.md`
+   - **Need a matching field incident, workaround, or fixed-version precedent** → search `references/optimizer-oncall-experiences-redacted/`
 
 4. **Apply the fix:**
    - Prefer the least invasive change: refresh stats → add index → hint → session variable.
@@ -37,7 +41,9 @@
 ## High-signal rules
 
 - **Always check stats first.** Most bad plans in TiDB come from stale or missing statistics, not optimizer bugs.
+- **Treat stats maintenance as capacity planning.** If `AUTO ANALYZE` cannot keep up with stats decay, plan quality will drift even when SQL does not change.
 - **`EXPLAIN ANALYZE` is the ground truth.** `EXPLAIN` alone shows estimates; `ANALYZE` shows what actually happened.
+- **Search known field cases before inventing a new workaround.** The oncall corpus under `references/optimizer-oncall-experiences-redacted/` is useful for symptom matching, investigation signals, and fix-version lookup.
 - **Correlated subqueries:** TiDB decorrelates by default. When the subquery is well-indexed and the outer query is selective, `NO_DECORRELATE()` often wins. See `references/subquery-optimization.md`.
 - **Join strategies matter:** TiDB supports hash join, index join, merge join, and shuffle joins. The right choice depends on table sizes, index availability, and data distribution. See `references/join-strategies.md`.
 - **Hints are per-query; variables are per-session/global.** Use hints for surgical fixes, variables for workload-wide tuning.
@@ -51,3 +57,7 @@
 - `references/subquery-optimization.md` — Decorrelation, semi-join, EXISTS/IN patterns and NO_DECORRELATE.
 - `references/index-selection.md` — Index hints, invisible indexes, index advisor, composite index guidance.
 - `references/explain-patterns.md` — Reading EXPLAIN ANALYZE output to identify bottlenecks.
+- `references/stats-health-and-auto-analyze.md` — Statistics health, auto analyze backlog diagnosis, and safe concurrency tuning.
+- `references/stats-loading-and-startup.md` — Init stats, sync load, restart-time plan instability, and version-based mitigation.
+- `references/stats-version-and-analyze-configuration.md` — Stats versioning, analyze coverage, and memory-safe stats collection settings.
+- `references/optimizer-oncall-experiences-redacted/` — Redacted optimizer oncall case corpus with user symptoms, investigation signals, workarounds, and fixed versions.

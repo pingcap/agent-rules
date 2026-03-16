@@ -39,7 +39,7 @@ Large differences indicate stale or inaccurate statistics.
 estRows: 100    actRows: 500000   ← Stats are wrong!
 ```
 
-**Action:** Run `ANALYZE TABLE <table>` and re-check.
+**Action:** Run `ANALYZE TABLE <table>;` (or with `ALL COLUMNS` if `@@tidb_analyze_column_options` is not `ALL`) and re-check.
 
 ### 2. Expensive operators (by wall time)
 
@@ -130,7 +130,7 @@ This means correlated execution. If `actRows` on the outer side is small, this i
 1. Run EXPLAIN ANALYZE
 2. Find the operator with the highest wall time
 3. Check estRows vs actRows for that operator and its children
-   ├── Big divergence → ANALYZE TABLE, then re-run
+   ├── Big divergence → ANALYZE TABLE <table>; (or with ALL COLUMNS), then re-run
    └── Stats are fine → Operator choice is the problem
 4. Identify the pattern:
    ├── Full scan → Add index or USE_INDEX hint

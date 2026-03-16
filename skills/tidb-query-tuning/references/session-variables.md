@@ -89,7 +89,7 @@ SET tidb_index_join_batch_size = 50000;
 SHOW STATS_HEALTHY WHERE Db_name = 'mydb';
 
 -- If stats are stale, refresh
-ANALYZE TABLE mydb.mytable;
+ANALYZE TABLE mydb.mytable; (or ALL COLUMNS if @@tidb_analyze_column_options != 'ALL')
 
 -- If plan is still bad, check cost model
 SELECT @@tidb_cost_model_version;

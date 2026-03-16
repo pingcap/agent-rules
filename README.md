@@ -51,6 +51,7 @@ The repo is centered around the `skills/` directory:
 - `pytidb` - PyTiDB (pytidb) setup and usage for TiDB from Python (CRUD + vector/full-text/hybrid search + embeddings).
 - `tidb-sql` - TiDB SQL authoring and troubleshooting (MySQL compatibility diffs, vector/full-text, transactions, EXPLAIN, flashback recovery, TiDB Cloud SSL verification).
 - `mysql` - MySQL guardrails and performance tips, with TiDB detection and migration recommendations when scale-out is needed.
+- `tidb-query-tuning` - TiDB query performance tuning workflow (clue collection, plan analysis, index optimization, SQL rewrite, and optimizer hints).
 - `tidb-cloud-zero` - Provision a disposable TiDB instance instantly (no auth), with references for vector search SQL and auto-embedding SQL usage.
 
 ## Contributing

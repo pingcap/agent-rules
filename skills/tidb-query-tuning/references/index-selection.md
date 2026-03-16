@@ -134,4 +134,4 @@ EXPLAIN ANALYZE SELECT /*+ USE_INDEX(orders, idx_status_region) */ * FROM orders
 - **Too many indexes:** Each index adds write overhead and storage. Only create indexes that serve real query patterns.
 - **Redundant indexes:** Index `(a, b)` makes a standalone index on `(a)` redundant. Audit with `SHOW INDEX`.
 - **Low-selectivity leading column:** An index on `(gender, user_id)` is almost useless if the first column has only 2-3 distinct values and queries don't always filter on it.
-- **Stale stats on new indexes:** After creating an index, run `ANALYZE TABLE` to collect stats for it. Otherwise the optimizer may not pick it.
+- **Stale stats on new indexes:** After creating an index, run `ANALYZE TABLE <table_name>;` (or with `ALL COLUMNS` if `@@tidb_analyze_column_options` is not `ALL`) to collect stats for it. Otherwise the optimizer may not pick it.

@@ -27,3 +27,4 @@
 ## Notes
 - At least one merged PR was found. The merge timestamp above can be used as the fix landing time in the main branch.
 - Treat this file as a customer-origin planner case that is intentionally kept in the corpus even though the upstream issue is missing the `report/customer` label.
+- Investigation clue: check `@@last_sql_use_alloc` during triage. A value of `0` is a useful signal that chunk reuse was disabled for the last statement. In this workload pattern, that can correlate with higher allocation pressure, slower compile paths, more frequent Go GC, and higher CPU usage.

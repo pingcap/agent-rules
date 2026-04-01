@@ -40,8 +40,8 @@
   PR Summary: This is an automated cherry-pick of #66624 What problem does this PR solve? Problem Summary: Queries with the same plan but different IN-list lengths (e.g.,  vs ) produce different plan digests. This causes the Dashboard to show many similar plans and harms usability. What changed and how does it work? See
 - Fix PR #66698: planner: enable tidb_ignore_inlist_plan_digest by default to improve user experience and add more test cases (#66624)
   URL: https://github.com/pingcap/tidb/pull/66698
-  State: open
-  Merged At: not merged
+  State: closed
+  Merged At: 2026-03-16T23:16:50Z
   Changed Files Count: 5
   Main Modules: pkg/planner/core, pkg/session
   Sample Changed Files:

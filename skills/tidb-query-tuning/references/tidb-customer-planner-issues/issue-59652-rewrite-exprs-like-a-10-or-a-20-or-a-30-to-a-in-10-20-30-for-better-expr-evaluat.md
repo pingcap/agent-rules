@@ -79,6 +79,34 @@
   - tests/integrationtest/r/planner/core/casetest/rule/rule_result_reorder.result
   - tests/integrationtest/r/util/ranger.result
   PR Summary: What problem does this PR solve? Problem Summary: This is a an enhancement for the planner range derivation logic for IN list which produces more ranges than the equivalent OR predicate. See example below. The ranges [1,1] [2,2] for the IN predicate compared to [1,2] for the equivalent OR predicate. Both forms scan the same data but less ranges could perform better especially if the number of ranges is high.  This issue addresses of on the potential side effect of issue  that aims to produce one canonical form for IN and irs equivalent OR list. What changed and how does it work?
+- Fix PR #67125: planner: merge OR and IN predicates into IN lists | tidb-test=pr/2714
+  URL: https://github.com/pingcap/tidb/pull/67125
+  State: open
+  Merged At: not merged
+  Changed Files Count: 31
+  Main Modules: pkg/planner/core, tests/integrationtest, pkg/executor
+  Sample Changed Files:
+  - pkg/executor/explainfor_test.go
+  - pkg/planner/core/casetest/indexmerge/BUILD.bazel
+  - pkg/planner/core/casetest/indexmerge/indexmerge_path_test.go
+  - pkg/planner/core/casetest/indexmerge/testdata/index_merge_suite_out.json
+  - pkg/planner/core/casetest/indexmerge/testdata/index_merge_suite_xut.json
+  - pkg/planner/core/casetest/partition/testdata/integration_partition_suite_out.json
+  - pkg/planner/core/casetest/partition/testdata/integration_partition_suite_xut.json
+  - pkg/planner/core/casetest/partition/testdata/partition_pruner_out.json
+  - pkg/planner/core/casetest/partition/testdata/partition_pruner_xut.json
+  - pkg/planner/core/casetest/physicalplantest/testdata/plan_suite_out.json
+  - pkg/planner/core/casetest/physicalplantest/testdata/plan_suite_xut.json
+  - pkg/planner/core/casetest/plancache/plan_cache_partition_table_test.go
+  - pkg/planner/core/casetest/rule/testdata/predicate_simplification_in.json
+  - pkg/planner/core/casetest/rule/testdata/predicate_simplification_out.json
+  - pkg/planner/core/casetest/rule/testdata/predicate_simplification_xut.json
+  - pkg/planner/core/casetest/testdata/integration_suite_out.json
+  - pkg/planner/core/casetest/testdata/integration_suite_xut.json
+  - pkg/planner/core/casetest/tpcds/testdata/tpcds_suite_out.json
+  - pkg/planner/core/casetest/tpcds/testdata/tpcds_suite_xut.json
+  - pkg/planner/core/indexmerge_path.go
+  PR Summary: What problem does this PR solve? Problem Summary: Predicate simplification can already remove duplicated branches from , but it does not collapse same-column equality disjunctions into a single  list. This misses a straightforward simplification for predicates like: The previous implementation in #63162 handles a broader  rewrite, but that approach is more general and more invasive than what is needed here. What changed and how does it work?
 
 ## Notes
 - This issue is still open. Use this file as a reminder list for customer-driven gaps that still need a fix or a completed rollout.

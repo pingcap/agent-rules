@@ -2,9 +2,10 @@
 
 ## Metadata
 - Issue: https://github.com/pingcap/tidb/issues/65818
-- Status: open
+- Status: closed
 - Type: type/bug
 - Created At: 2026-01-26T11:27:23Z
+- Closed At: 2026-03-18T04:31:31Z
 - Labels: affects-8.5, report/customer, severity/moderate, sig/planner, type/bug
 
 ## Customer-Facing Phenomenon
@@ -13,15 +14,15 @@
 ## Linked PRs
 - Fix PR #65249: executor: fix analyze cannot be killed
   URL: https://github.com/pingcap/tidb/pull/65249
-  State: open
-  Merged At: not merged
-  Changed Files Count: 12
-  Main Modules: pkg/executor, pkg/distsql, pkg/statistics
+  State: closed
+  Merged At: 2026-03-18T04:31:29Z
+  Changed Files Count: 11
+  Main Modules: pkg/executor, pkg/distsql
   Sample Changed Files:
   - pkg/distsql/distsql.go
   - pkg/executor/analyze.go
   - pkg/executor/analyze_col.go
-  - pkg/executor/analyze_col_v2.go
+  - pkg/executor/analyze_col_sampling.go
   - pkg/executor/analyze_idx.go
   - pkg/executor/analyze_test.go
   - pkg/executor/analyze_utils.go
@@ -29,8 +30,7 @@
   - pkg/executor/test/analyzetest/BUILD.bazel
   - pkg/executor/test/analyzetest/analyze_test.go
   - pkg/executor/test/analyzetest/memorycontrol/memory_control_test.go
-  - pkg/statistics/handle/autoanalyze/autoanalyze.go
-  PR Summary: What problem does this PR solve? Problem Summary: After #63067 removed the coprocessor-side periodic kill polling fallback in , cancellation for  and RPC paths effectively relies on the caller-provided context being canceled promptly. Analyze still had several V1 paths that entered  or RPC with  or otherwise inconsistent contexts. As a result, a kill signal could be observed before entering the RPC, but once a worker was blocked in  or RPC, some paths could not exit proactively. What changed and how does it work?
+  PR Summary: What problem does this PR solve? Problem Summary: After #63067 removed the coprocessor-side periodic kill polling fallback in ,  started depending on the caller-provided context to stop blocked  / DistSQL work promptly. Several analyze paths still used  or did not propagate the same kill-aware context consistently through workers, merge loops, and result handling. As a result, a kill or cancellation could be observed before the RPC started, but some blocked analyze paths still could not exit promptly once they entered  / DistSQL. What changed and how does it work?
 
 ## Notes
-- This issue is still open. Use this file as a reminder list for customer-driven gaps that still need a fix or a completed rollout.
+- At least one merged PR was found. The merge timestamp above can be used as the fix landing time in the main branch.

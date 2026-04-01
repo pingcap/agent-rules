@@ -15,8 +15,8 @@
   URL: https://github.com/pingcap/tidb/pull/66145
   State: open
   Merged At: not merged
-  Changed Files Count: 21
-  Main Modules: pkg/planner/core, tests/integrationtest, pkg/planner, pkg/statistics, pkg/executor
+  Changed Files Count: 20
+  Main Modules: pkg/planner/core, pkg/planner, tests/integrationtest, pkg/statistics, pkg/executor
   Sample Changed Files:
   - pkg/executor/test/analyzetest/analyze_test.go
   - pkg/planner/cardinality/row_count_column.go
@@ -35,9 +35,9 @@
   - pkg/statistics/histogram.go
   - tests/integrationtest/r/executor/issues.result
   - tests/integrationtest/r/executor/partition/partition_with_expression.result
-  - tests/integrationtest/r/explain_generate_column_substitute.result
   - tests/integrationtest/r/imdbload.result
   - tests/integrationtest/r/planner/core/cbo.result
+  - tests/integrationtest/r/planner/core/integration_partition.result
   PR Summary: What problem does this PR solve? Problem Summary: What changed and how does it work? While this affects 8.5 - it will be very difficult to cherry pick. The goal here is to consolidate all "out-of-range" estimation to use the same logic. It shouldn't matter if you are out-of-range for an equals or a range predicate. This is only targeting stats V2 use.
 - Fix PR #66310: planner: out of Range full NDV
   URL: https://github.com/pingcap/tidb/pull/66310

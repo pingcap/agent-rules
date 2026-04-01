@@ -123,19 +123,28 @@
   - pkg/planner/core/find_best_task.go
   - pkg/planner/core/stats.go
   PR Summary: This is an automated cherry-pick of #66304 What problem does this PR solve? Problem Summary: What changed and how does it work? This PR provides 2 main optimizations:
-- Related PR #66695: planner: optimize for full range (#66304)
+- Related PR #66695: planner: optimize for full range (#66304) | tidb-test=pr/2708
   URL: https://github.com/pingcap/tidb/pull/66695
   State: open
   Merged At: not merged
-  Changed Files Count: 6
-  Main Modules: pkg/planner, pkg/planner/core, .cursor/commands
+  Changed Files Count: 15
+  Main Modules: pkg/planner/core, pkg/planner, tests/integrationtest, pkg/ddl, pkg/executor
   Sample Changed Files:
-  - .cursor/commands/new-question.md
+  - pkg/ddl/tests/partition/db_partition_test.go
+  - pkg/executor/test/analyzetest/analyze_test.go
+  - pkg/planner/cardinality/BUILD.bazel
   - pkg/planner/cardinality/row_count_index.go
   - pkg/planner/cardinality/selectivity_test.go
+  - pkg/planner/core/casetest/physicalplantest/testdata/plan_suite_out.json
+  - pkg/planner/core/casetest/planstats/testdata/plan_stats_suite_out.json
   - pkg/planner/core/find_best_task.go
+  - pkg/planner/core/logical_plans_test.go
   - pkg/planner/core/stats.go
+  - pkg/planner/core/testdata/index_merge_suite_out.json
   - pkg/planner/util/path.go
+  - tests/integrationtest/r/imdbload.result
+  - tests/integrationtest/r/planner/core/casetest/index/index.result
+  - tests/integrationtest/r/planner/core/plan_cost_ver2.result
   PR Summary: This is an automated cherry-pick of #66304 What problem does this PR solve? Problem Summary: What changed and how does it work? This PR provides 2 main optimizations:
 
 ## Notes

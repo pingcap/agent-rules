@@ -30,6 +30,30 @@
   - pkg/sessionctx/variable/session.go
   - pkg/sessionctx/variable/sysvar.go
   PR Summary: What problem does this PR solve? Problem Summary: What changed and how does it work?
+- Related PR #67305: pkg/planner: add order-aware logical join reorder rule
+  URL: https://github.com/pingcap/tidb/pull/67305
+  State: open
+  Merged At: not merged
+  Changed Files Count: 16
+  Main Modules: pkg/planner/core, pkg/planner, pkg/session
+  Sample Changed Files:
+  - pkg/planner/core/BUILD.bazel
+  - pkg/planner/core/casetest/rule/BUILD.bazel
+  - pkg/planner/core/casetest/rule/main_test.go
+  - pkg/planner/core/casetest/rule/rule_cdc_join_reorder_test.go
+  - pkg/planner/core/casetest/rule/testdata/order_aware_join_reorder_suite_in.json
+  - pkg/planner/core/casetest/rule/testdata/order_aware_join_reorder_suite_out.json
+  - pkg/planner/core/casetest/rule/testdata/order_aware_join_reorder_suite_xut.json
+  - pkg/planner/core/joinorder/BUILD.bazel
+  - pkg/planner/core/joinorder/join_order.go
+  - pkg/planner/core/joinorder/ordered_leading.go
+  - pkg/planner/core/operator/logicalop/logical_join.go
+  - pkg/planner/core/optimizer.go
+  - pkg/planner/core/rule/logical_rules.go
+  - pkg/planner/core/rule_order_aware_join_reorder.go
+  - pkg/planner/optimize.go
+  - pkg/sessionctx/stmtctx/stmtctx.go
+  PR Summary: What problem does this PR solve? Problem Summary: The order-aware logic for the new CD-C join reorder path should live in a separate logical rule instead of being mixed into the generic join reorder solver. What changed and how does it work? This PR adds a new logical rule that inspects join groups with propagated TopN / ORDER BY columns, reuses the CD-C  logic, and injects an internal  preference when one ordered leaf can preserve the required ordering with compatible equality filters.
 
 ## Notes
 - This issue is still open. Use this file as a reminder list for customer-driven gaps that still need a fix or a completed rollout.

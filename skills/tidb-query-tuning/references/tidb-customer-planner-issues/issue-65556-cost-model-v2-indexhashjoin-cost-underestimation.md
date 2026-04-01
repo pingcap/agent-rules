@@ -32,6 +32,30 @@
   - tests/integrationtest/r/planner/core/rule_join_reorder.result
   - tests/integrationtest/r/tpch.result
   PR Summary: What problem does this PR solve? Problem Summary: Cost Model v2 underestimates : the cost formula missed probe-side hash cost and could use incorrect join key count, leading to wrong plan preference. What changed and how does it work? Fix cost model v2 for index-join family in :
+- Fix PR #66786: planner: Adjust cost for semijoin and apply | tidb-test=pr/2703
+  URL: https://github.com/pingcap/tidb/pull/66786
+  State: closed
+  Merged At: 2026-03-18T00:50:47Z
+  Changed Files Count: 16
+  Main Modules: pkg/planner/core, pkg/planner, tests/integrationtest
+  Sample Changed Files:
+  - pkg/planner/cardinality/BUILD.bazel
+  - pkg/planner/cardinality/selectivity_test.go
+  - pkg/planner/core/casetest/cascades/testdata/cascades_suite_out.json
+  - pkg/planner/core/casetest/cbotest/testdata/analyze_suite_out.json
+  - pkg/planner/core/casetest/cbotest/testdata/analyze_suite_xut.json
+  - pkg/planner/core/casetest/correlated/testdata/correlated_subquery_suite_out.json
+  - pkg/planner/core/casetest/correlated/testdata/correlated_subquery_suite_xut.json
+  - pkg/planner/core/casetest/rule/testdata/outer2inner_out.json
+  - pkg/planner/core/casetest/rule/testdata/outer2inner_xut.json
+  - pkg/planner/core/casetest/tpch/testdata/tpch_suite_out.json
+  - pkg/planner/core/casetest/tpch/testdata/tpch_suite_xut.json
+  - pkg/planner/core/exhaust_physical_plans.go
+  - pkg/planner/core/operator/logicalop/logical_apply.go
+  - pkg/planner/core/plan_cost_ver2.go
+  - tests/integrationtest/r/planner/core/grouped_ranges_order_by.result
+  - tests/integrationtest/r/topn_push_down.result
+  PR Summary: What problem does this PR solve? Problem Summary: What changed and how does it work? Changes This PR improves planner cost modeling for semi-join operators (EXISTS/NOT EXISTS subqueries) across IndexJoin and Apply plans, particularly when ordering is involved.
 
 ## Notes
 - This issue is still open. Use this file as a reminder list for customer-driven gaps that still need a fix or a completed rollout.

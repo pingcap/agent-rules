@@ -29,8 +29,8 @@
   PR Summary: What problem does this PR solve? Problem Summary: executor,planner: add index-only index-merge path for MVIndex queries What changed and how does it work? Summary Add an index-only fast path for  when accessing MVIndex in eligible queries.
 - Fix PR #66996: planner: enable index-only MV IndexMerge only for single covered partial path (optimizer part)
   URL: https://github.com/pingcap/tidb/pull/66996
-  State: open
-  Merged At: not merged
+  State: closed
+  Merged At: 2026-03-18T11:28:33Z
   Changed Files Count: 7
   Main Modules: pkg/planner/core, pkg/executor
   Sample Changed Files:

@@ -1,30 +1,41 @@
 # TiDB Customer Planner Issues
 
+- Repository: `pingcap/tidb`
 - Source Query: `repo:pingcap/tidb is:issue label:"report/customer" label:"sig/planner" created:>=2024-01-01`
-- Total Issues: 175
+- Total Issues: 186
 
 | Issue | Status | Type | Linked PR Count | File |
 | --- | --- | --- | ---: | --- |
-| #66668 | open | type/enhancement | 1 | [issue-66668-planner-can-t-use-primary-as-an-index-in-indexmerge-for-predicate-id-and-a-or-b.md](./issue-66668-planner-can-t-use-primary-as-an-index-in-indexmerge-for-predicate-id-and-a-or-b.md) |
+| #67468 | open | type/enhancement | 0 | [issue-67468-support-join-reorder-for-semi-join.md](./issue-67468-support-join-reorder-for-semi-join.md) |
+| #67467 | open | type/enhancement | 0 | [issue-67467-enable-semi-join-rewrite-in-multi-alternative-implementation.md](./issue-67467-enable-semi-join-rewrite-in-multi-alternative-implementation.md) |
+| #67409 | open | type/enhancement | 0 | [issue-67409-planner-white-list-based-plan-cache-strategy.md](./issue-67409-planner-white-list-based-plan-cache-strategy.md) |
+| #67385 | open | type/bug | 0 | [issue-67385-sql-infra-a-user-wth-super-privilege-can-t-execute-show-config.md](./issue-67385-sql-infra-a-user-wth-super-privilege-can-t-execute-show-config.md) |
+| #67366 | open | type/enhancement | 3 | [issue-67366-planner-output-a-warning-if-implicit-join-key-type-conversion-happend.md](./issue-67366-planner-output-a-warning-if-implicit-join-key-type-conversion-happend.md) |
+| #67363 | open | type/enhancement | 0 | [issue-67363-planner-better-binding-matching-mechanism.md](./issue-67363-planner-better-binding-matching-mechanism.md) |
+| #67138 | closed | type/bug | 2 | [issue-67138-when-cte-contains-order-by-the-subquery-error-returns-null.md](./issue-67138-when-cte-contains-order-by-the-subquery-error-returns-null.md) |
+| #66919 | open | type/enhancement | 2 | [issue-66919-planner-statistics-use-selected-partition-stats-for-dynamic-pruning.md](./issue-66919-planner-statistics-use-selected-partition-stats-for-dynamic-pruning.md) |
+| #66903 | closed | type/bug | 1 | [issue-66903-planner-task-nil-pointer.md](./issue-66903-planner-task-nil-pointer.md) |
+| #66668 | closed | type/enhancement | 2 | [issue-66668-planner-can-t-use-primary-as-an-index-in-indexmerge-for-predicate-id-and-a-or-b.md](./issue-66668-planner-can-t-use-primary-as-an-index-in-indexmerge-for-predicate-id-and-a-or-b.md) |
 | #66658 | open | type/enhancement | 0 | [issue-66658-planner-decrease-concurrency-batch-size-automatically-for-streaming-plans-with-l.md](./issue-66658-planner-decrease-concurrency-batch-size-automatically-for-streaming-plans-with-l.md) |
 | #66623 | closed | type/bug | 3 | [issue-66623-planner-same-plans-with-different-in-list-should-have-the-same-plan-digests.md](./issue-66623-planner-same-plans-with-different-in-list-should-have-the-same-plan-digests.md) |
 | #66320 | open | type/bug | 1 | [issue-66320-planner-correlate-a-non-correlated-in-subquery.md](./issue-66320-planner-correlate-a-non-correlated-in-subquery.md) |
 | #66203 | open | type/enhancement | 0 | [issue-66203-planner-decrease-the-default-value-64mb-of-tidb-opt-range-max-size.md](./issue-66203-planner-decrease-the-default-value-64mb-of-tidb-opt-range-max-size.md) |
+| #65938 | closed | type/bug | 2 | [issue-65938-can-t-find-column-column-6-in-schema-column-column-5-pkoruk-nullableuk.md](./issue-65938-can-t-find-column-column-6-in-schema-column-column-5-pkoruk-nullableuk.md) |
 | #65924 | open | type/bug | 2 | [issue-65924-the-estrows-of-equal-condition-is-overestimated-when-the-modify-count-is-zero.md](./issue-65924-the-estrows-of-equal-condition-is-overestimated-when-the-modify-count-is-zero.md) |
 | #65916 | open | type/bug | 0 | [issue-65916-explain-for-connection-fails-with-non-prepared-plan-cache-parameterization.md](./issue-65916-explain-for-connection-fails-with-non-prepared-plan-cache-parameterization.md) |
 | #65915 | closed | type/bug | 1 | [issue-65915-analyze-statement-freezes-if-saveanalyzeresulttostorage-meets-error-when-analyze.md](./issue-65915-analyze-statement-freezes-if-saveanalyzeresulttostorage-meets-error-when-analyze.md) |
 | #65878 | open | type/enhancement | 1 | [issue-65878-planner-plan-cache-support-queries-with-int-col-str-val.md](./issue-65878-planner-plan-cache-support-queries-with-int-col-str-val.md) |
 | #65876 | closed | type/enhancement | 1 | [issue-65876-planner-non-prep-plan-cache-support-is-null.md](./issue-65876-planner-non-prep-plan-cache-support-is-null.md) |
-| #65867 | closed | type/bug | 1 | [issue-65867-tidb-runtime-error-invalid-memory-address-or-nil-pointer-dereference.md](./issue-65867-tidb-runtime-error-invalid-memory-address-or-nil-pointer-dereference.md) |
+| #65867 | closed | type/bug | 2 | [issue-65867-tidb-runtime-error-invalid-memory-address-or-nil-pointer-dereference.md](./issue-65867-tidb-runtime-error-invalid-memory-address-or-nil-pointer-dereference.md) |
 | #65838 | open | type/bug | 0 | [issue-65838-inl-join-hint-shows-warning-when-tidb-opt-advanced-join-hint-off-but-silently-fa.md](./issue-65838-inl-join-hint-shows-warning-when-tidb-opt-advanced-join-hint-off-but-silently-fa.md) |
 | #65822 | open | type/enhancement | 0 | [issue-65822-support-building-indexmerge-path-and-pushing-down-limit-for-in-expression-in-nes.md](./issue-65822-support-building-indexmerge-path-and-pushing-down-limit-for-in-expression-in-nes.md) |
-| #65818 | open | type/bug | 1 | [issue-65818-analyze-cannot-be-cancelled-promptly.md](./issue-65818-analyze-cannot-be-cancelled-promptly.md) |
+| #65818 | closed | type/bug | 1 | [issue-65818-analyze-cannot-be-cancelled-promptly.md](./issue-65818-analyze-cannot-be-cancelled-promptly.md) |
 | #65712 | open | type/enhancement | 1 | [issue-65712-better-plan-for-limit-n-order-by-on-indexmerge-when-not-all-partial-paths-satisf.md](./issue-65712-better-plan-for-limit-n-order-by-on-indexmerge-when-not-all-partial-paths-satisf.md) |
 | #65639 | open | type/bug | 0 | [issue-65639-sql-binding-fails-silently-when-sql-is-too-long-binding-created-but-not-visible-.md](./issue-65639-sql-binding-fails-silently-when-sql-is-too-long-binding-created-but-not-visible-.md) |
-| #65556 | open | type/bug | 1 | [issue-65556-cost-model-v2-indexhashjoin-cost-underestimation.md](./issue-65556-cost-model-v2-indexhashjoin-cost-underestimation.md) |
+| #65556 | open | type/bug | 2 | [issue-65556-cost-model-v2-indexhashjoin-cost-underestimation.md](./issue-65556-cost-model-v2-indexhashjoin-cost-underestimation.md) |
 | #65489 | closed | type/bug | 3 | [issue-65489-memory-leak-when-analyze-table-is-the-last-statement-in-a-session.md](./issue-65489-memory-leak-when-analyze-table-is-the-last-statement-in-a-session.md) |
 | #65381 | closed | type/bug | 3 | [issue-65381-planner-the-optimizer-can-t-use-the-latest-tidb-mem-quota-binding-cache-value-to.md](./issue-65381-planner-the-optimizer-can-t-use-the-latest-tidb-mem-quota-binding-cache-value-to.md) |
-| #65208 | open | type/enhancement | 1 | [issue-65208-support-using-ordering-property-to-get-better-join-order.md](./issue-65208-support-using-ordering-property-to-get-better-join-order.md) |
+| #65208 | open | type/enhancement | 2 | [issue-65208-support-using-ordering-property-to-get-better-join-order.md](./issue-65208-support-using-ordering-property-to-get-better-join-order.md) |
 | #65183 | closed | type/bug | 2 | [issue-65183-planner-row-count-incorrectly-forced-to-1-for-indexjoin-when-matching-only-a-pre.md](./issue-65183-planner-row-count-incorrectly-forced-to-1-for-indexjoin-when-matching-only-a-pre.md) |
 | #65166 | closed | type/bug | 4 | [issue-65166-planner-outer-join-cannot-be-eliminated-due-to-the-impact-of-the-expression-inde.md](./issue-65166-planner-outer-join-cannot-be-eliminated-due-to-the-impact-of-the-expression-inde.md) |
 | #65165 | closed | type/enhancement | 1 | [issue-65165-planner-outer-join-should-be-eliminated-when-join-keys-do-not-use-nulleq-and-can.md](./issue-65165-planner-outer-join-should-be-eliminated-when-join-keys-do-not-use-nulleq-and-can.md) |
@@ -38,7 +49,7 @@
 | #64648 | open | type/enhancement | 0 | [issue-64648-planner-optimizer-uses-total-table-size-for-partition-table-scan-cost-estimation.md](./issue-64648-planner-optimizer-uses-total-table-size-for-partition-table-scan-cost-estimation.md) |
 | #64643 | closed | type/bug | 3 | [issue-64643-planner-read-from-storage-hint-table-alias-matching-problem-when-using-crossdb-b.md](./issue-64643-planner-read-from-storage-hint-table-alias-matching-problem-when-using-crossdb-b.md) |
 | #64572 | closed | type/bug | 3 | [issue-64572-planner-unexpected-low-out-of-range-estimation-on-index-stats.md](./issue-64572-planner-unexpected-low-out-of-range-estimation-on-index-stats.md) |
-| #64463 | open | type/bug | 0 | [issue-64463-tidb-report-error-some-columns-of-limit-69-cannot-find-the-reference-from-its-ch.md](./issue-64463-tidb-report-error-some-columns-of-limit-69-cannot-find-the-reference-from-its-ch.md) |
+| #64463 | closed | type/bug | 0 | [issue-64463-tidb-report-error-some-columns-of-limit-69-cannot-find-the-reference-from-its-ch.md](./issue-64463-tidb-report-error-some-columns-of-limit-69-cannot-find-the-reference-from-its-ch.md) |
 | #64423 | closed | type/bug | 3 | [issue-64423-analyze-a-small-table-costs-a-lot-of-memory.md](./issue-64423-analyze-a-small-table-costs-a-lot-of-memory.md) |
 | #64375 | closed | type/enhancement | 2 | [issue-64375-planner-a-more-fine-grained-track-of-optimization-time.md](./issue-64375-planner-a-more-fine-grained-track-of-optimization-time.md) |
 | #64345 | open | type/enhancement | 0 | [issue-64345-recommend-index-statements-may-be-slow-and-can-t-be-killed.md](./issue-64345-recommend-index-statements-may-be-slow-and-can-t-be-killed.md) |
@@ -109,9 +120,10 @@
 | #59986 | closed | type/enhancement | 1 | [issue-59986-planner-support-long-binding-statement.md](./issue-59986-planner-support-long-binding-statement.md) |
 | #59972 | closed | type/enhancement | 3 | [issue-59972-planner-selection-splits-the-join-group-to-two-parts-forbidding-join-reorder-to-.md](./issue-59972-planner-selection-splits-the-join-group-to-two-parts-forbidding-join-reorder-to-.md) |
 | #59902 | closed | type/bug | 2 | [issue-59902-the-estrows-is-wrong-for-inner-operator-of-index-join.md](./issue-59902-the-estrows-is-wrong-for-inner-operator-of-index-join.md) |
+| #59876 | closed | type/bug | 1 | [issue-59876-covering-indexes-do-not-work-in-update-joins.md](./issue-59876-covering-indexes-do-not-work-in-update-joins.md) |
 | #59869 | open | type/enhancement | 0 | [issue-59869-unionall-should-be-able-to-reserve-the-order-property-comming-from-its-children.md](./issue-59869-unionall-should-be-able-to-reserve-the-order-property-comming-from-its-children.md) |
 | #59759 | closed | type/bug | 7 | [issue-59759-data-too-long-field-len-x-error-when-loading-stats-for-a-bit-column.md](./issue-59759-data-too-long-field-len-x-error-when-loading-stats-for-a-bit-column.md) |
-| #59652 | open | type/enhancement | 3 | [issue-59652-rewrite-exprs-like-a-10-or-a-20-or-a-30-to-a-in-10-20-30-for-better-expr-evaluat.md](./issue-59652-rewrite-exprs-like-a-10-or-a-20-or-a-30-to-a-in-10-20-30-for-better-expr-evaluat.md) |
+| #59652 | open | type/enhancement | 4 | [issue-59652-rewrite-exprs-like-a-10-or-a-20-or-a-30-to-a-in-10-20-30-for-better-expr-evaluat.md](./issue-59652-rewrite-exprs-like-a-10-or-a-20-or-a-30-to-a-in-10-20-30-for-better-expr-evaluat.md) |
 | #59560 | closed | type/bug | 7 | [issue-59560-memory-leak-risk-in-session-pool-usage-in-stats-sync-load.md](./issue-59560-memory-leak-risk-in-session-pool-usage-in-stats-sync-load.md) |
 | #59524 | closed | type/bug | 8 | [issue-59524-release-the-internal-session-which-may-meet-error-like-54022.md](./issue-59524-release-the-internal-session-which-may-meet-error-like-54022.md) |
 | #59427 | closed | type/bug | 3 | [issue-59427-comments-style-optimizer-hints-can-t-work-for-point-get-plan-sometimes.md](./issue-59427-comments-style-optimizer-hints-can-t-work-for-point-get-plan-sometimes.md) |

@@ -13,7 +13,7 @@
 ## Linked PRs
 - Fix PR #66198: expression: skip refineArgs for comparisons when plan cache is active
   URL: https://github.com/pingcap/tidb/pull/66198
-  State: open
+  State: closed
   Merged At: not merged
   Changed Files Count: 2
   Main Modules: pkg/expression, pkg/planner/core

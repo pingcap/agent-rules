@@ -83,12 +83,10 @@
   URL: https://github.com/pingcap/tidb/pull/67125
   State: open
   Merged At: not merged
-  Changed Files Count: 31
+  Changed Files Count: 27
   Main Modules: pkg/planner/core, tests/integrationtest, pkg/executor
   Sample Changed Files:
   - pkg/executor/explainfor_test.go
-  - pkg/planner/core/casetest/indexmerge/BUILD.bazel
-  - pkg/planner/core/casetest/indexmerge/indexmerge_path_test.go
   - pkg/planner/core/casetest/indexmerge/testdata/index_merge_suite_out.json
   - pkg/planner/core/casetest/indexmerge/testdata/index_merge_suite_xut.json
   - pkg/planner/core/casetest/partition/testdata/integration_partition_suite_out.json
@@ -105,8 +103,10 @@
   - pkg/planner/core/casetest/testdata/integration_suite_xut.json
   - pkg/planner/core/casetest/tpcds/testdata/tpcds_suite_out.json
   - pkg/planner/core/casetest/tpcds/testdata/tpcds_suite_xut.json
-  - pkg/planner/core/indexmerge_path.go
-  PR Summary: What problem does this PR solve? Problem Summary: Predicate simplification can already remove duplicated branches from , but it does not collapse same-column equality disjunctions into a single  list. This misses a straightforward simplification for predicates like: The previous implementation in #63162 handles a broader  rewrite, but that approach is more general and more invasive than what is needed here. What changed and how does it work?
+  - pkg/planner/core/rule/rule_predicate_simplification.go
+  - pkg/planner/core/testdata/plan_suite_unexported_out.json
+  - tests/integrationtest/r/executor/partition/partition_boundaries.result
+  PR Summary: What problem does this PR solve? Problem Summary: Predicate simplification can already remove duplicated branches from expressions such as , but it still keeps many same-column disjunctions in non-normalized forms, for example: This means logically equivalent predicates may reach later optimization stages in different shapes, which makes plan output and related test expectations less consistent than they need to be. What changed and how does it work?
 
 ## Notes
 - This issue is still open. Use this file as a reminder list for customer-driven gaps that still need a fix or a completed rollout.

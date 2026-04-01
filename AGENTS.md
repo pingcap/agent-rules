@@ -26,6 +26,7 @@ Recent history uses short, imperative-style messages, occasionally with a PR num
 - A clear description of the skill or change.
 - Rationale and prerequisites (when adding a new component).
 - Steps to use or verify the change.
+- When referencing TiDB issues or pull requests, use the full GitHub URL (for example, `https://github.com/pingcap/tidb/issues/67498`) instead of bare `#12345` references to avoid cross-repo ambiguity.
 
 ## Security & Configuration Tips
 Do not commit secrets in skills or references. If a skill requires credentials, document environment variable names in `SKILL.md` and provide placeholders only.

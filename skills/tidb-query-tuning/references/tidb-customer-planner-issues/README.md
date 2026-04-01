@@ -1,13 +1,14 @@
-# TiDB Customer Planner Issues
+# TiDB Customer Issue Experiences
 
 - Repository: `pingcap/tidb`
 - Source Query: `repo:pingcap/tidb is:issue label:"report/customer" label:"sig/planner" created:>=2024-01-01`
-- Total Issues: 186
+- Total Issues: 187
 
 | Issue | Status | Type | Linked PR Count | File |
 | --- | --- | --- | ---: | --- |
+| #67498 | open | type/bug | 1 | [issue-67498-planner-preserve-in-for-varchar-vs-numeric-comparisons-with-a-common-cmp-type.md](./issue-67498-planner-preserve-in-for-varchar-vs-numeric-comparisons-with-a-common-cmp-type.md) |
 | #67468 | open | type/enhancement | 0 | [issue-67468-support-join-reorder-for-semi-join.md](./issue-67468-support-join-reorder-for-semi-join.md) |
-| #67467 | open | type/enhancement | 0 | [issue-67467-enable-semi-join-rewrite-in-multi-alternative-implementation.md](./issue-67467-enable-semi-join-rewrite-in-multi-alternative-implementation.md) |
+| #67467 | open | type/enhancement | 1 | [issue-67467-enable-semi-join-rewrite-in-multi-alternative-implementation.md](./issue-67467-enable-semi-join-rewrite-in-multi-alternative-implementation.md) |
 | #67409 | open | type/enhancement | 0 | [issue-67409-planner-white-list-based-plan-cache-strategy.md](./issue-67409-planner-white-list-based-plan-cache-strategy.md) |
 | #67385 | open | type/bug | 0 | [issue-67385-sql-infra-a-user-wth-super-privilege-can-t-execute-show-config.md](./issue-67385-sql-infra-a-user-wth-super-privilege-can-t-execute-show-config.md) |
 | #67366 | open | type/enhancement | 3 | [issue-67366-planner-output-a-warning-if-implicit-join-key-type-conversion-happend.md](./issue-67366-planner-output-a-warning-if-implicit-join-key-type-conversion-happend.md) |

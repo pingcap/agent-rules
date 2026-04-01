@@ -12,7 +12,7 @@ Use GitHub issue mining when:
 - the local references do not cover a customer-facing symptom well enough
 - you need a recent field precedent instead of a general tuning rule
 - you want fix PRs, merge timestamps, and open issue reminders
-- you want to build or refresh a local corpus of customer-driven planner or stats bugs
+- you want to build or refresh a local corpus of planner or stats bugs, with `report/customer` issues preferred when they exist
 
 Do not start from issue mining if a stable reference under `references/` already answers the question. Use the issue corpus to complement the topic docs, not replace them.
 
@@ -21,8 +21,9 @@ Do not start from issue mining if a stable reference under `references/` already
 1. Start with the local references in `references/`.
 2. Search `references/optimizer-oncall-experiences-redacted/` for a symptom match.
 3. Search `references/tidb-customer-planner-issues/` if you need linked PRs, merge times, or still-open customer gaps.
-4. If the local corpora are still missing the pattern, mine GitHub issues with the script in `scripts/`.
-5. Review the generated files, then fold reusable learnings back into the relevant reference docs when appropriate.
+4. If the most relevant recent planner issue does not carry `report/customer`, do not exclude it for that reason alone. Broaden the GitHub query and inspect it directly.
+5. If the local corpora are still missing the pattern, mine GitHub issues with the script in `scripts/`.
+6. Review the generated files, then fold reusable learnings back into the relevant reference docs when appropriate.
 
 ## Issue mining script
 
@@ -44,19 +45,25 @@ The current checked-in issue corpus lives under:
 
 ## Recommended query patterns
 
-For customer-driven planner issues:
+Preferred query for customer-driven planner issues:
 
 ```text
 repo:pingcap/tidb is:issue label:"report/customer" label:"sig/planner" created:>=2024-01-01
 ```
 
-For stats-heavy issue mining:
+Fallback query for recent planner issues when `report/customer` is missing but the issue is still highly relevant:
+
+```text
+repo:pingcap/tidb is:issue label:"sig/planner" created:>=2024-01-01
+```
+
+Preferred query for stats-heavy issue mining:
 
 ```text
 repo:pingcap/tidb is:issue label:"report/customer" (label:"sig/planner" OR label:"sig/execution") stats created:>=2024-01-01
 ```
 
-Adjust the query rather than hardcoding different behaviors into the script.
+Adjust the query rather than hardcoding different behaviors into the script. `report/customer` is a prioritization signal, not a hard requirement.
 
 ## Usage example
 

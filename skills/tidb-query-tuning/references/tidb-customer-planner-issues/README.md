@@ -2,7 +2,7 @@
 
 - Repository: `pingcap/tidb`
 - Source Query: `repo:pingcap/tidb is:issue label:"report/customer" label:"sig/planner" created:>=2024-01-01`
-- Total Issues: 187
+- Total Issues: 188
 
 | Issue | Status | Type | Linked PR Count | File |
 | --- | --- | --- | ---: | --- |
@@ -14,6 +14,7 @@
 | #67366 | open | type/enhancement | 3 | [issue-67366-planner-output-a-warning-if-implicit-join-key-type-conversion-happend.md](./issue-67366-planner-output-a-warning-if-implicit-join-key-type-conversion-happend.md) |
 | #67363 | open | type/enhancement | 0 | [issue-67363-planner-better-binding-matching-mechanism.md](./issue-67363-planner-better-binding-matching-mechanism.md) |
 | #67138 | closed | type/bug | 2 | [issue-67138-when-cte-contains-order-by-the-subquery-error-returns-null.md](./issue-67138-when-cte-contains-order-by-the-subquery-error-returns-null.md) |
+| #67108 | closed | type/enhancement | 1 | [issue-67108-planner-refine-reuse-chunk-heuristic-for-large-rows-under-root-limit.md](./issue-67108-planner-refine-reuse-chunk-heuristic-for-large-rows-under-root-limit.md) |
 | #66919 | open | type/enhancement | 2 | [issue-66919-planner-statistics-use-selected-partition-stats-for-dynamic-pruning.md](./issue-66919-planner-statistics-use-selected-partition-stats-for-dynamic-pruning.md) |
 | #66903 | closed | type/bug | 1 | [issue-66903-planner-task-nil-pointer.md](./issue-66903-planner-task-nil-pointer.md) |
 | #66668 | closed | type/enhancement | 2 | [issue-66668-planner-can-t-use-primary-as-an-index-in-indexmerge-for-predicate-id-and-a-or-b.md](./issue-66668-planner-can-t-use-primary-as-an-index-in-indexmerge-for-predicate-id-and-a-or-b.md) |

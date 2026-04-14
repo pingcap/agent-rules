@@ -17,11 +17,13 @@ TiDB supports multiple join algorithms. The optimizer picks one based on cost es
 - **Best for:** Inner table has a good index on the join key; outer side is small to moderate.
 - **Cost profile:** O(outer rows × index lookup cost). Very fast when outer side is small.
 - **Watch out for:** Outer side cardinality misestimation. If outer side is actually large, this becomes expensive.
+- **Also watch out for:** The join type can be right while the chosen inner probe index is wrong. Always inspect the probe-side `access object` and pushed predicates.
 
 ### Index Hash Join (`INL_HASH_JOIN`)
 
 - **How it works:** Like INL_JOIN but uses hash matching on the inner side instead of pure index order.
 - **Best for:** Similar to INL_JOIN but when inner side needs hash-based matching.
+- **Watch out for:** Like `INL_JOIN`, `INL_HASH_JOIN` can still be slow if the optimizer picks the wrong probe index on the inner side.
 
 ### Merge Join (`MERGE_JOIN`)
 
@@ -70,12 +72,18 @@ FROM orders o JOIN customers c ON o.cust_id = c.id;
 SELECT /*+ INL_JOIN(c) */ *
 FROM orders o JOIN customers c ON o.cust_id = c.id;
 
+-- Force index hash join with customers as inner (probed) side
+SELECT /*+ INL_HASH_JOIN(c) */ *
+FROM orders o JOIN customers c ON o.cust_id = c.id;
+
 -- Force join order: join orders and items first, then customers
 SELECT /*+ LEADING(o, i, c) */ *
 FROM orders o
 JOIN items i ON i.order_id = o.id
 JOIN customers c ON c.id = o.cust_id;
 ```
+
+Join hints only control the join algorithm and inner table choice. They do not guarantee that the chosen probe-side index is the best one. For `IndexJoin` and `IndexHashJoin`, always inspect the inner `access object` and compare candidate indexes when latency remains high.
 
 ## Common misoptimization patterns
 
@@ -101,6 +109,23 @@ SELECT /*+ HASH_JOIN(t1, t2) */ ...
 FROM t1 JOIN t2 ON t1.id = t2.ref_id
 WHERE t1.status = 'active';
 ```
+
+### Pattern: Right index-based join, wrong probe index
+
+**Symptom:** `EXPLAIN ANALYZE` shows `IndexJoin` or `IndexHashJoin`, and that join type looks reasonable, but the probe child uses the wrong index. Common signs are:
+
+- The probe-side `access object` does not align with the full join key.
+- Residual filters remain on the probe side even though another existing index could push more predicates down.
+- The plan uses `IndexLookUp` plus heavy table lookup even though a more covering inner index already exists.
+
+**Fix:** Keep the join algorithm if it is otherwise correct, but compare candidate inner indexes with `USE_INDEX` or `IGNORE_INDEX`:
+
+```sql
+SELECT /*+ INL_JOIN(t2) USE_INDEX(t2, idx_join_cols) */ ...
+FROM t1 JOIN t2 ON ...;
+```
+
+If the better probe index wins consistently, stabilize it with a SQL binding or query hint.
 
 ### Pattern: Wrong join order in multi-way join
 

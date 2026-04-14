@@ -26,6 +26,7 @@ Use this skill to diagnose and resolve TiDB query performance issues. It follows
 
 3. **Identify the bottleneck pattern:**
    - **Bad join order or strategy** → see `references/join-strategies.md`
+   - **`IndexJoin`/`IndexHashJoin` picked the wrong probe index** → see `references/join-strategies.md`, `references/index-selection.md`, and `references/slow-plan-optimization/cases/use-correct-probe-index-for-index-join.md`
    - **Subquery not handled well** → see `references/subquery-optimization.md`
    - **Wrong or missing index** → see `references/index-selection.md`
    - **Optimizer choosing a suboptimal plan despite good stats** → see `references/optimizer-hints.md` and `references/session-variables.md`
@@ -43,6 +44,7 @@ Use this skill to diagnose and resolve TiDB query performance issues. It follows
 5. **Apply the fix:**
    - Prefer the least invasive change: refresh stats → add index → SQL Binding → hint → session variable.
    - **SQL Binding**: Fix plans without code changes: `CREATE GLOBAL BINDING FOR <stmt> USING <hinted_stmt>;`.
+   - **Validate index-based join probe paths**: When the plan uses `IndexJoin` or `IndexHashJoin`, inspect the probe-side `access object`, pushed conditions, and whether the path is covering. Do **not** assume the chosen probe index is correct just because the join type is index-based. If another existing index better matches join keys, selective filters, or covering needs, compare it with `USE_INDEX`/`IGNORE_INDEX` and stabilize the winner with a hint or SQL binding.
    - **Binding cleanup safety**: TiDB currently has no batch-delete API for global bindings. Do **not** run `DELETE` on `mysql.bind_info` directly. Use `DROP GLOBAL BINDING ...` for each target binding instead.
    - **If direct delete was already executed**: `ADMIN RELOAD BINDINGS` may still leave stale entries in the in-memory binding cache. In this case, restart the TiDB server to fully clear and rebuild binding cache state.
    - See `references/optimizer-oncall-experiences-redacted/direct-delete-bind-info-leaves-stale-binding-cache.md` for a full reproduction and recovery checklist.
@@ -63,6 +65,7 @@ Use this skill to diagnose and resolve TiDB query performance issues. It follows
 - **Search recent GitHub issue precedents when fix lineage matters.** The corpus under `references/tidb-customer-planner-issues/` is useful when you need linked PRs, merge times, and still-open customer gaps.
 - **Correlated subqueries:** TiDB decorrelates by default. When the subquery is well-indexed and the outer query is selective, `NO_DECORRELATE()` often wins. See `references/subquery-optimization.md`.
 - **Join strategies matter:** TiDB supports hash join, index join, merge join, and shuffle joins. The right choice depends on table sizes, index availability, and data distribution. See `references/join-strategies.md`.
+- **Join type and probe index are separate checks:** `IndexJoin` and `IndexHashJoin` can still be slow because the optimizer picked the wrong inner probe index. Always inspect the probe-side `access object`, pushed predicates, and whether another existing index better matches join keys and covering needs.
 - **Hints are per-query; variables are per-session/global.** Use hints for surgical fixes, variables for workload-wide tuning.
 - **TiDB currently has no batch-delete API for global bindings.** Do not delete rows from `mysql.bind_info` directly; use `DROP GLOBAL BINDING` instead.
 - **If `mysql.bind_info` was modified directly and reload does not clear bindings, restart TiDB.** `ADMIN RELOAD BINDINGS` might not fully remove stale in-memory binding cache entries after direct table deletes.
@@ -82,6 +85,7 @@ Use this skill to diagnose and resolve TiDB query performance issues. It follows
 - `references/join-strategies.md` — Join algorithms, when TiDB picks each, and how to override.
 - `references/subquery-optimization.md` — Decorrelation, semi-join, EXISTS/IN patterns and NO_DECORRELATE.
 - `references/index-selection.md` — Index hints, invisible indexes, index advisor, composite index guidance.
+- `references/slow-plan-optimization/cases/use-correct-probe-index-for-index-join.md` — Validate and fix wrong probe-index selection for `IndexJoin` and `IndexHashJoin`.
 - `references/explain-patterns.md` — Reading EXPLAIN ANALYZE output to identify bottlenecks.
 - `references/stats-health-and-auto-analyze.md` — Statistics health, auto analyze backlog diagnosis, and safe concurrency tuning.
 - `references/stats-loading-and-startup.md` — Init stats, sync load, restart-time plan instability, and version-based mitigation.

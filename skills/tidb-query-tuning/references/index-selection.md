@@ -129,6 +129,21 @@ EXPLAIN ANALYZE SELECT /*+ USE_INDEX(orders, idx_region) */ * FROM orders WHERE 
 EXPLAIN ANALYZE SELECT /*+ USE_INDEX(orders, idx_status_region) */ * FROM orders WHERE ...;
 ```
 
+## `IndexJoin` and `IndexHashJoin` probe-side index selection
+
+For `IndexJoin` and `IndexHashJoin`, treat the inner/probe access path as an index-selection problem, not only a join-strategy problem.
+
+- Match the join equality columns on the probe-side table first.
+- Then prefer indexes that also absorb pushed `=` or `IN` filters.
+- Prefer a more covering probe path when it can avoid `IndexLookUp` and extra `TableRowIDScan`.
+- Compare existing candidates with `EXPLAIN ANALYZE` using `USE_INDEX` or `IGNORE_INDEX`.
+- If an existing index is clearly better for this query shape, prefer a SQL binding or query hint before adding a new index.
+
+Two common patterns:
+
+- Query shape `t1.a = t2.a AND t2.b = 1 AND t2.d = 1`: if both `(a, b)` and `(a, b, c, d)` exist, the longer index can be the better probe path even though the join only uses `a`.
+- Query shape `ab.col1 = mp.col2 AND ab.col2 = mp.col6`: an index starting with `(col2, col6)` can be a better probe path than an index that starts with local filter columns but does not match the full join-key prefix.
+
 ## Common pitfalls
 
 - **Too many indexes:** Each index adds write overhead and storage. Only create indexes that serve real query patterns.

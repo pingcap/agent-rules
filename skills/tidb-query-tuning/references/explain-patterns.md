@@ -67,7 +67,18 @@ HashJoin         actRows:50000
 
 **Action:** Consider `INL_JOIN` if the build side has an index, or `LEADING` to swap build/probe sides.
 
-### 5. Unnecessary Sort operators
+### 5. `IndexJoin` or `IndexHashJoin` using the wrong probe index
+
+```
+IndexJoin / IndexHashJoin
+└── Probe child uses index:idx_filter_only
+```
+
+The join algorithm may be reasonable, but the probe-side `access object` can still be wrong.
+
+**Action:** Compare candidate probe indexes with `USE_INDEX` / `IGNORE_INDEX`, then stabilize the better path with a SQL binding or hint.
+
+### 6. Unnecessary Sort operators
 
 ```
 Sort             actRows:1000000
@@ -76,7 +87,7 @@ Sort             actRows:1000000
 
 If there's an index that provides the sort order, use `ORDER_INDEX` to eliminate the Sort.
 
-### 6. Apply operator (correlated subquery)
+### 7. Apply operator (correlated subquery)
 
 ```
 Apply            actRows:1000
@@ -104,6 +115,7 @@ This means correlated execution. If `actRows` on the outer side is small, this i
 |----------|---------|
 | `HashJoin` | Hash join (look for Build and Probe children) |
 | `IndexJoin` | Index nested loop join |
+| `IndexHashJoin` | Index hash join with indexed probe side |
 | `MergeJoin` | Sort-merge join |
 | `Apply` | Correlated subquery execution (per-row) |
 
@@ -135,6 +147,7 @@ This means correlated execution. If `actRows` on the outer side is small, this i
 4. Identify the pattern:
    ├── Full scan → Add index or USE_INDEX hint
    ├── Wrong join strategy → HASH_JOIN / INL_JOIN hint
+   ├── Right join strategy but wrong probe index → Compare USE_INDEX candidates and bind the winner
    ├── Wrong join order → LEADING hint
    ├── Expensive correlated subquery → Check NO_DECORRELATE guidance
    └── Unnecessary Sort → ORDER_INDEX hint or add sorted index

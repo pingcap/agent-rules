@@ -15,6 +15,9 @@ This is a sub-module of `tidb-query-tuning`, not an independent skill entry poin
 - Confirm required inputs first (SQL, `EXPLAIN ANALYZE`, and schema if available).
 - Identify the bottleneck operator in the execution plan first.
   - Define bottleneck operator as the operator that accounts for the largest time cost in the plan.
+- If the bottleneck is `IndexJoin` or `IndexHashJoin`, inspect the inner/probe child before changing join strategy.
+  - Separate "right join algorithm" from "right probe index".
+  - Verify the probe-side `access object`, pushed predicates, and whether another existing index would give a tighter or more covering lookup path.
 - Decide whether this is a query plan problem before proposing plan tuning.
   - If the bottleneck operator processes only a small number of rows but still takes a long time, treat it as likely not a query plan problem.
 - If it is not a query plan problem, or there is no clear room for plan-side improvement, do not provide plan optimization suggestions.
@@ -35,6 +38,7 @@ This is a sub-module of `tidb-query-tuning`, not an independent skill entry poin
 - Keep diagnosis priority fixed: determine plan problem vs non-plan problem before plan changes.
 - If diagnosis says non-plan problem, stop plan tuning and return only the non-plan conclusion.
 - If diagnosis says execution-layer bottleneck with an already-optimal plan, allow concurrency tuning suggestion as non-plan guidance.
+- For `IndexJoin` and `IndexHashJoin`, do not treat the join algorithm and the probe index as the same decision.
 - Do not jump to index or SQL rewrite suggestions before considering binding/hints.
 - Use runtime evidence from `EXPLAIN ANALYZE` to justify each recommendation.
 - When recommending new indexes, avoid duplicated indexes.
@@ -69,3 +73,4 @@ This is a sub-module of `tidb-query-tuning`, not an independent skill entry poin
 - `cases/use-tiflash-mpp-for-large-aggregation.md` - Use TiFlash or MPP for large aggregations when index-based StreamAgg optimization is not feasible.
 - `cases/use-index-merge-for-dnf-predicates.md` - Consider IndexMerge for DNF predicates such as `a = ? OR b = ? OR c > ?`.
 - `cases/use-covering-index-for-filter-and-order-by.md` - Use covering index to optimize `WHERE ... ORDER BY ...` patterns.
+- `cases/use-correct-probe-index-for-index-join.md` - Validate whether `IndexJoin` or `IndexHashJoin` chose the right inner probe index before changing join strategy or adding indexes.

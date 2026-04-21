@@ -41,7 +41,7 @@
   PR Summary: What problem does this PR solve? Problem Summary: TiDB uses dynamic partition pruning by default. In some queries that only touch a subset of partitions, cardinality estimation still falls back to the partition table stats path, which is less accurate than using stats merged from the selected partitions. Reusing such partition-specific pruning information through plan cache is also unsafe. What changed and how does it work? Reuse statically-determined partition pruning results in the dynamic pruning path to collect the selected partition IDs for stats estimation.
 - Related PR #67139: [DNM] planner, statistics: use selected partition stats for dynamic pruning
   URL: https://github.com/pingcap/tidb/pull/67139
-  State: open
+  State: closed
   Merged At: not merged
   Changed Files Count: 22
   Main Modules: pkg/planner/core, pkg/session, pkg/planner

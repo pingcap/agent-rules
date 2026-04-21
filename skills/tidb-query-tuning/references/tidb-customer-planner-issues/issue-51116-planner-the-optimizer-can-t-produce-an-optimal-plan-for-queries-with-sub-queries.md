@@ -76,6 +76,26 @@
   - tests/integrationtest/r/cte.result
   - tests/integrationtest/r/planner/core/casetest/physicalplantest/physical_plan.result
   PR Summary: This is an automated cherry-pick of #63287 What problem does this PR solve? Problem Summary: What changed and how does it work? Enhancement to add LIMIT 1 to EXISTS correlated subqueries (where NO_DECORRELATE hint exists) if no existing LIMIT applies within the subquery.
+- Related PR #67693: [Do Not Merge/ POC only] planner: support rewrite join to apply rule
+  URL: https://github.com/pingcap/tidb/pull/67693
+  State: closed
+  Merged At: not merged
+  Changed Files Count: 12
+  Main Modules: pkg/parser, pkg/planner/core, tests/integrationtest, pkg/executor, pkg/util
+  Sample Changed Files:
+  - pkg/executor/adapter.go
+  - pkg/parser/hintparser.go
+  - pkg/parser/hintparser.y
+  - pkg/parser/hintparser_test.go
+  - pkg/parser/misc.go
+  - pkg/planner/core/optimizer.go
+  - pkg/planner/core/planbuilder.go
+  - pkg/planner/core/rule/logical_rules.go
+  - pkg/planner/core/rule_join_to_apply.go
+  - pkg/util/hint/hint.go
+  - tests/integrationtest/r/planner/core/casetest/hint/join_to_apply.result
+  - tests/integrationtest/t/planner/core/casetest/hint/join_to_apply.test
+  PR Summary: What problem does this PR solve? Problem Summary: support rewrite join to apply rule What changed and how does it work?
 
 ## Notes
 - At least one merged PR was found. The merge timestamp above can be used as the fix landing time in the main branch.

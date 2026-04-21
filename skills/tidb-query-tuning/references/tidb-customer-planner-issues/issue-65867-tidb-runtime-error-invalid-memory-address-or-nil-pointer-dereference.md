@@ -32,6 +32,16 @@
   - pkg/planner/cardinality/row_count_index.go
   - pkg/planner/core/integration_test.go
   PR Summary: What problem does this PR solve? Problem Summary: planner: fix a nil pointer bug caused by nil TopN What changed and how does it work? planner: fix a nil pointer bug caused by nil TopN
+- Fix PR #67840: planner: fix a nil pointer bug caused by nil TopN
+  URL: https://github.com/pingcap/tidb/pull/67840
+  State: closed
+  Merged At: 2026-04-17T08:27:48Z
+  Changed Files Count: 2
+  Main Modules: pkg/planner, pkg/planner/core
+  Sample Changed Files:
+  - pkg/planner/cardinality/row_count_index.go
+  - pkg/planner/core/integration_test.go
+  PR Summary: What problem does this PR solve? Problem Summary: planner: fix a nil pointer bug caused by nil TopN What changed and how does it work? planner: fix a nil pointer bug caused by nil TopN
 
 ## Notes
 - At least one merged PR was found. The merge timestamp above can be used as the fix landing time in the main branch.

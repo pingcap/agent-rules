@@ -56,6 +56,21 @@ Use this skill to diagnose and resolve TiDB query performance issues. It follows
    - Confirm `actRows` and execution time improved.
    - If the fix is a hint, document it in a SQL comment so future readers understand why.
 
+## High CPU Workflow
+
+When the customer reports high TiDB CPU usage, use the following workflow before jumping to optimizer conclusions:
+
+0. Treat `clinic-api` as the default entry point. If `clinic-api` is unavailable, require the user to provide the equivalent raw evidence first, including CPU profiles, query history, plans, TopSQL, statement summary, and slow query samples.
+1. Define both the problematic time window and a comparable non-problematic baseline window. The baseline should preferably be from the same time-of-day pattern. Pull many TiDB CPU profiles for both sides, ideally around 50 profiles in total if the incident duration allows it.
+2. Compare the problem-window and baseline CPU profiles to identify which stacks or functions consume materially more time during the incident.
+3. Work backward from the hot stacks and infer what query or plan patterns could produce them. Consider optimizer, executor, compiler, GC, memory tracking, range building, and internal SQL paths instead of assuming all CPU comes from user SQL.
+4. Check TopSQL, statement summary, and slow query records in the same time window. Collect the candidate SQLs and their plans, and include internal SQL in the candidate set.
+5. Build a minimal candidate query set that best explains the observed CPU symptom. Use correlation analysis, principal-component style reduction, or combinational optimization to find the smallest query combination that remains highly correlated with the incident signal.
+6. Compare candidate queries against the observed symptom shape. For example, CPU spikes may correlate better with GC pressure, compiler duration, plan building, or execution hot loops than with raw query count alone. Check correlation, periodicity, and dispersion instead of relying only on top-N totals.
+7. If the candidate set does not explain the symptom with high confidence, go back to step 1, expand the profiling sample set, and repeat the comparison with a better baseline or a narrower incident slice.
+
+Use this workflow to decide whether the next step should be query tuning, plan inspection, stats diagnosis, internal SQL investigation, or a product bug report.
+
 ## High-signal rules
 
 - **Always check stats first.** Most bad plans in TiDB come from stale or missing statistics, not optimizer bugs.

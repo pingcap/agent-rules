@@ -29,6 +29,7 @@ Use this skill to diagnose and resolve TiDB query performance issues. It follows
    - **Subquery not handled well** → see `references/subquery-optimization.md`
    - **Wrong or missing index** → see `references/index-selection.md`
    - **Optimizer choosing a suboptimal plan despite good stats** → see `references/optimizer-hints.md` and `references/session-variables.md`
+   - **Need to discover historical or generated alternative plans** → see `references/explain-explore.md`
    - **Stats are stale or auto analyze cannot keep up** → see `references/stats-health-and-auto-analyze.md`
    - **Plans change after restart or sync stats loading times out** → see `references/stats-loading-and-startup.md`
    - **Need to tune analyze version, column coverage, or memory-heavy stats collection** → see `references/stats-version-and-analyze-configuration.md`
@@ -76,6 +77,7 @@ Use this skill to diagnose and resolve TiDB query performance issues. It follows
 - `references/clues.md` — Detailed SQLs and metrics for clue collection.
 - `references/reproduction.md` — Baseline investigation and known version issues.
 - `references/plan-replayer-testing.md` — Local reproduction using TiUP and PLAN REPLAYER.
+- `references/explain-explore.md` — Use `EXPLAIN EXPLORE` to discover candidate plans, rank plan shapes, and decide when runtime verification is needed.
 - `references/bug-report.md` — Standard bug report template and anonymization workflow.
 - `references/optimizer-hints.md` — Optimizer hints: syntax, catalog, and when to use each.
 - `references/session-variables.md` — Session/global variables that affect plan choice.

@@ -4,17 +4,18 @@
 
 # AgenticStore
 
-AgenticStore is a repo for designing and curating SKILLS for code agents. It focuses on database provisioning workflows for agentic apps, with TiDB Cloud as the current supported provider. Components are added incrementally and documented as the skill set grows.
+AgenticStore is a repo for designing and curating SKILLS for code agents. It focuses on database and persistent workspace workflows for agentic apps, with TiDB Cloud as the current supported provider. Components are added incrementally and documented as the skill set grows.
 
 ## Goals
 
-- Provide reusable SKILLS for database provisioning and lifecycle tasks
-- Offer opinionated, composable database workflows for AI app builders
+- Provide reusable SKILLS for database provisioning, lifecycle, and persistent workspace tasks
+- Offer opinionated, composable data and workspace workflows for AI app builders
 - Keep guidance practical, concise, and easy to apply in real projects
 
 ## Scope (Current + Planned)
 
 - TiDB Cloud provisioning and lifecycle workflows
+- TiDB Cloud Filesystem mounting for agents and ephemeral environments
 - TiDB Cloud serverless driver usage and edge runtime guidance
 - TiDB Cloud Kysely usage (TCP + serverless/edge)
 - More managed database providers (planned)
@@ -28,7 +29,7 @@ The repo is centered around the `skills/` directory:
 ## How to Use
 
 - Browse the `skills/` directory for capability-specific instructions.
-- Use skills to provision, connect to, or manage database resources.
+- Use skills to provision, connect to, or manage database and filesystem resources.
 - Open the relevant `SKILL.md` for step-by-step guidance and prerequisites.
 
 ## Skill Authoring
@@ -52,6 +53,7 @@ The repo is centered around the `skills/` directory:
 - `tidb-sql` - TiDB SQL authoring and troubleshooting (MySQL compatibility diffs, vector/full-text, transactions, EXPLAIN, flashback recovery, TiDB Cloud SSL verification).
 - `mysql` - MySQL guardrails and performance tips, with TiDB detection and migration recommendations when scale-out is needed.
 - `tidb-cloud-zero` - Provision a disposable TiDB instance instantly (no auth), with references for vector search SQL and auto-embedding SQL usage.
+- `mount-tidb-cloud-fs` - Mount an existing TiDB Cloud Filesystem in a clean or ephemeral environment with a Filesystem token and region.
 
 ## Contributing
 

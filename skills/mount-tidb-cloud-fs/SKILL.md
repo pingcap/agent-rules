@@ -61,21 +61,75 @@ mkdir -p -- "$MOUNT_PATH"
 Prefer a new or empty directory. Do not hide existing local files by mounting over
 a non-empty directory unless the user explicitly intends that behavior.
 
-Keep the default `--driver auto` unless a specific driver is required:
+Choose the driver by platform:
 
-- Linux requires `/dev/fuse` plus `fusermount3` or `fusermount`. Installing `fuse3`
-  is not enough in a container unless the container can access `/dev/fuse` and has
-  the permissions needed to mount it. WebDAV is not a Linux fallback in v0.2.3.
+- On Linux, use FUSE only. Never pass `--driver webdav`; the current `ti`
+  implementation rejects WebDAV mounts on Linux.
 - macOS automatically uses macFUSE when available and otherwise uses the system
   WebDAV mount helper. Install macFUSE only when FUSE behavior is required.
 - Windows local mounting is not supported by the v0.2.3 implementation. Use
   Filesystem data-plane commands or mount from a supported Linux/macOS host.
 
+On Linux, do not stop after discovering that `fusermount3` or `fusermount` is
+missing. Attempt to install the FUSE userspace package first. Do not infer that
+installation is impossible from a read-only workspace; run the package manager and
+report its actual error if it fails.
+
+```bash
+if [ "$(uname -s)" = "Linux" ] &&
+   ! command -v fusermount3 >/dev/null 2>&1 &&
+   ! command -v fusermount >/dev/null 2>&1; then
+  if [ "$(id -u)" -eq 0 ]; then
+    fuse_privilege=()
+  elif command -v sudo >/dev/null 2>&1; then
+    fuse_privilege=(sudo)
+  else
+    echo "FUSE tools are missing and root or sudo is required to install them" >&2
+    exit 1
+  fi
+
+  if command -v apt-get >/dev/null 2>&1; then
+    "${fuse_privilege[@]}" apt-get update
+    "${fuse_privilege[@]}" apt-get install -y fuse3
+  elif command -v dnf >/dev/null 2>&1; then
+    "${fuse_privilege[@]}" dnf install -y fuse3
+  elif command -v yum >/dev/null 2>&1; then
+    "${fuse_privilege[@]}" yum install -y fuse3 ||
+      "${fuse_privilege[@]}" yum install -y fuse
+  elif command -v apk >/dev/null 2>&1; then
+    "${fuse_privilege[@]}" apk add --no-cache fuse3
+  else
+    echo "Unsupported package manager; install fuse3 manually" >&2
+    exit 1
+  fi
+
+  hash -r
+fi
+
+if [ "$(uname -s)" = "Linux" ]; then
+  command -v fusermount3 >/dev/null 2>&1 ||
+    command -v fusermount >/dev/null 2>&1 ||
+    { echo "FUSE userspace tools are still unavailable" >&2; exit 1; }
+
+  if [ ! -c /dev/fuse ]; then
+    echo "FUSE tools are installed, but /dev/fuse is not exposed" >&2
+    echo "Expose /dev/fuse and grant mount permissions in the host or container runtime" >&2
+    exit 1
+  fi
+fi
+```
+
 ### 4. Mount the file system
 
 ```bash
+mount_driver=auto
+if [ "$(uname -s)" = "Linux" ]; then
+  mount_driver=fuse
+fi
+
 ti fs mount-file-system \
   --mount-path "$MOUNT_PATH" \
+  --driver "$mount_driver" \
   --ready-timeout 60s
 ```
 
@@ -86,7 +140,8 @@ The mount runs in the background and returns after it is ready. Useful options:
 
 - Add `--read-only` for inspection or when the token has no write permission.
 - Add `--foreground` when debugging the mount process.
-- Add `--driver fuse` or `--driver webdav` only after checking platform support.
+- On macOS, override `auto` with `--driver fuse` or `--driver webdav` only when
+  required. Never use `--driver webdav` on Linux.
 - Use `--query` and `--output` when an agent needs a specific machine-readable
   result.
 
@@ -119,8 +174,8 @@ ti fs unmount-file-system --mount-path "$MOUNT_PATH"
 - A supplied `TI_FS_FILE_SYSTEM_ID` must match the ID derived from the token.
 - A scoped token can access only its allowed paths and operations. Do not assume it
   permits writes.
-- On Linux, confirm both `/dev/fuse` and `fusermount3` or `fusermount` are available.
-  If FUSE cannot be exposed, a local mount is not available; use `ti fs` data-plane
-  commands instead.
+- On Linux, do not treat missing FUSE userspace tools as a final blocker. Run the
+  installation workflow, then report the actual failing command or missing
+  `/dev/fuse` device or permissions. Never switch to WebDAV.
 - If a background mount times out, inspect the log path reported by `ti` and retry
   with `--foreground`.

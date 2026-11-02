@@ -19,4 +19,8 @@ These are larger examples. Use them when you want an “AI app” that happens t
 
 - Template: `templates/text2sql.py`
 - Uses: OpenAI to generate SQL + executes on TiDB via PyTiDB
-- Safety: always review generated SQL; block non-SELECT in app logic
+- Safety: treat generated SQL as untrusted input. The template only executes a
+  single read-only statement after confirmation (no stacked statements, no
+  comments, no DML/DDL keywords, bounded result set). Connect with a
+  SELECT-only account — app-level checks are defense in depth, not a
+  replacement for least privilege.
